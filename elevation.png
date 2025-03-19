@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Kart med GPX og Høydekurve</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/sihoe/gyger/main/leaflet-elevation/leaflet.elevation.css">
+    <style>
+        #map { width: 100%; height: 700px; }
+        #elevation-chart { height: 200px; }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+    <div id="elevation-chart"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://raw.githubusercontent.com/sihoe/gyger/main/leaflet-elevation/L.Control.Elevation.js"></script>
+
+    <script>
+        console.log("📌 Starter Leaflet-kart med GPX og høydekurve!");
+
+        var map = L.map('map').setView([59.83467, 9.57846], 12);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Kartdata © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 19,
+            detectRetina: true
+        }).addTo(map);
+
+        // **Legg til høydekurve-widget**
+        var controlElevation = L.control.elevation({
+            position: "bottomleft",
+            theme: "lightblue-theme",
+            width: 800,
+            height: 200,
+            collapsed: false
+        }).addTo(map);
+
+        var gpxUrl = 'https://raw.githubusercontent.com/sihoe/gyger/main/Bingenrunde-forenkletdata.gpx';
+
+        console.log("🔄 Laster GPX-fil:", gpxUrl);
+
+        new L.GPX(gpxUrl, {
+            async: true,
+            polyline_options: {
+                color: '#CA6B2A',
+                weight: 5,
+                opacity: 0.9,
+                lineCap: 'round'
+            }
+        }).on('loaded', function(e) {
+            console.log("✅ GPX-fil lastet inn!");
+            map.fitBounds(e.target.getBounds());
+        }).on('addline', function(e) {
+            console.log("📊 Høydekurve lagt til!");
+            controlElevation.addData(e.line);
+        }).addTo(map);
+    </script>
+
+</body>
+</html>
