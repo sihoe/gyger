@@ -16,31 +16,31 @@
         "elevation": 189.0
     },
     {
-        "distance": 0.4296511826572487,
-        "elevation": 190.0
+        "distance": 0.2864621969131017,
+        "elevation": 189.0
     },
     {
-        "distance": 0.5999657114755828,
+        "distance": 0.549821578649204,
+        "elevation": 194.0
+    },
+    {
+        "distance": 0.8115962615419312,
+        "elevation": 193.0
+    },
+    {
+        "distance": 0.9511586620343522,
+        "elevation": 192.0
+    },
+    {
+        "distance": 1.050282340773129,
         "elevation": 196.0
     },
     {
-        "distance": 0.8728282698061872,
-        "elevation": 193.0
+        "distance": 1.1690377437769552,
+        "elevation": 194.0
     },
     {
-        "distance": 1.0007089863309775,
-        "elevation": 193.0
-    },
-    {
-        "distance": 1.0980162493777064,
-        "elevation": 197.0
-    },
-    {
-        "distance": 1.236588485504589,
-        "elevation": 191.0
-    },
-    {
-        "distance": 1.4012060750375626,
+        "distance": 1.4322389347761857,
         "elevation": 196.0
     },
     {
@@ -48,8 +48,8 @@
         "elevation": 202.0
     },
     {
-        "distance": 1.7094932680270014,
-        "elevation": 210.0
+        "distance": 1.7186973133695467,
+        "elevation": 211.0
     },
     {
         "distance": 1.8857990003667524,
@@ -60,15 +60,15 @@
         "elevation": 240.0
     },
     {
-        "distance": 2.321567324900025,
-        "elevation": 251.0
+        "distance": 2.4180293707523557,
+        "elevation": 252.0
     },
     {
         "distance": 2.5672886991659833,
         "elevation": 257.0
     },
     {
-        "distance": 2.7210585095228734,
+        "distance": 2.729422820718332,
         "elevation": 263.0
     },
     {
@@ -76,87 +76,91 @@
         "elevation": 264.0
     },
     {
-        "distance": 2.9598292890087317,
+        "distance": 2.9386904837004852,
         "elevation": 265.0
     },
     {
-        "distance": 3.0866295852279966,
+        "distance": 3.0576559676435346,
         "elevation": 268.0
     },
     {
-        "distance": 3.1984742148209593,
-        "elevation": 277.0
+        "distance": 3.1660824434290165,
+        "elevation": 273.0
     },
     {
-        "distance": 3.3487682792492004,
+        "distance": 3.3277682415204715,
         "elevation": 282.0
     },
     {
-        "distance": 3.462718245292146,
+        "distance": 3.4373421228941377,
         "elevation": 285.0
     },
     {
-        "distance": 3.6212607780986508,
-        "elevation": 295.0
+        "distance": 3.5959777506123323,
+        "elevation": 293.0
     },
     {
-        "distance": 3.777630583361872,
+        "distance": 3.771690316324491,
         "elevation": 309.0
     },
     {
-        "distance": 3.9626913089486364,
-        "elevation": 324.0
+        "distance": 3.9149125938316347,
+        "elevation": 318.0
     },
     {
-        "distance": 4.059150568942741,
-        "elevation": 339.0
+        "distance": 4.040820202897175,
+        "elevation": 335.0
     },
     {
-        "distance": 4.187424925835528,
-        "elevation": 355.0
+        "distance": 4.153780237737817,
+        "elevation": 353.0
     },
     {
-        "distance": 4.441093157749615,
-        "elevation": 385.0
+        "distance": 4.344972259765153,
+        "elevation": 373.0
     },
     {
-        "distance": 4.58332339746464,
-        "elevation": 400.0
+        "distance": 4.536122165180931,
+        "elevation": 395.0
     },
     {
-        "distance": 4.775108436377029,
-        "elevation": 410.0
+        "distance": 4.727318086702885,
+        "elevation": 407.0
     },
     {
-        "distance": 4.973640974109745,
-        "elevation": 408.0
+        "distance": 4.808281529026384,
+        "elevation": 411.0
+    },
+    {
+        "distance": 4.983422718445139,
+        "elevation": 409.0
     },
     {
         "distance": 5.127653596642977,
         "elevation": 416.0
     },
     {
-        "distance": 5.323539647594107,
-        "elevation": 435.0
+        "distance": 5.314518537078614,
+        "elevation": 434.0
     },
     {
-        "distance": 5.410748692860757,
+        "distance": 5.396439536375157,
         "elevation": 437.0
     },
     {
-        "distance": 5.496525239315446,
-        "elevation": 443.0
+        "distance": 5.492017939775733,
+        "elevation": 442.0
     },
     {
-        "distance": 5.653016284083464,
-        "elevation": 455.0
+        "distance": 5.635405522860372,
+        "elevation": 453.0
     },
     {
-        "distance": 5.8264659151719504,
-        "elevation": 474.0
+        "distance": 5.798289419144392,
+        "elevation": 472.0
     },
     {
-        "distance": 5.960851343672164,
+        "distance": 5.954128319733193,
         "elevation": 482.0
     },
     {
@@ -164,31 +168,35 @@
         "elevation": 486.0
     },
     {
-        "distance": 6.196382698592664,
-        "elevation": 492.0
+        "distance": 6.12712864829879,
+        "elevation": 489.0
     },
     {
-        "distance": 6.304448959625657,
+        "distance": 6.148535012046293,
+        "elevation": 490.0
+    },
+    {
+        "distance": 6.280809611650279,
+        "elevation": 494.0
+    },
+    {
+        "distance": 6.374877018475481,
         "elevation": 493.0
     },
     {
-        "distance": 6.413557484229162,
-        "elevation": 493.0
+        "distance": 6.550274019514919,
+        "elevation": 494.0
     },
     {
-        "distance": 6.594456118771343,
-        "elevation": 492.0
-    },
-    {
-        "distance": 6.73461927117505,
+        "distance": 6.717061764227667,
         "elevation": 485.0
     },
     {
-        "distance": 6.877966674200807,
+        "distance": 6.83749150499792,
         "elevation": 487.0
     },
     {
-        "distance": 7.058020822223267,
+        "distance": 7.045272818381712,
         "elevation": 496.0
     },
     {
@@ -196,143 +204,151 @@
         "elevation": 510.0
     },
     {
-        "distance": 7.312810325750792,
-        "elevation": 517.0
+        "distance": 7.307935589484175,
+        "elevation": 516.0
     },
     {
         "distance": 7.39997294116773,
         "elevation": 525.0
     },
     {
-        "distance": 7.575281259684826,
+        "distance": 7.546737290090182,
         "elevation": 526.0
     },
     {
-        "distance": 7.68402948888878,
-        "elevation": 524.0
+        "distance": 7.666346124320153,
+        "elevation": 523.0
     },
     {
-        "distance": 7.833385098276211,
+        "distance": 7.830308816089642,
         "elevation": 531.0
     },
     {
-        "distance": 7.976775827365172,
+        "distance": 7.954512151333179,
         "elevation": 527.0
     },
     {
-        "distance": 8.167896560722152,
-        "elevation": 539.0
+        "distance": 8.12326859813161,
+        "elevation": 536.0
     },
     {
-        "distance": 8.329406085284429,
+        "distance": 8.242679251410145,
+        "elevation": 542.0
+    },
+    {
+        "distance": 8.364027355106138,
         "elevation": 545.0
     },
     {
-        "distance": 8.502050306840435,
-        "elevation": 546.0
-    },
-    {
-        "distance": 8.611783194388083,
+        "distance": 8.560563336780813,
         "elevation": 545.0
     },
     {
-        "distance": 8.738241600562128,
+        "distance": 8.68050504771881,
+        "elevation": 545.0
+    },
+    {
+        "distance": 8.788458781789497,
         "elevation": 550.0
     },
     {
-        "distance": 8.873563179343876,
-        "elevation": 545.0
+        "distance": 8.955338779664851,
+        "elevation": 540.0
     },
     {
-        "distance": 8.97949325030547,
-        "elevation": 537.0
+        "distance": 9.075788516785336,
+        "elevation": 530.0
     },
     {
-        "distance": 9.122899502667194,
-        "elevation": 526.0
+        "distance": 9.218402350542176,
+        "elevation": 522.0
     },
     {
-        "distance": 9.279428228620105,
-        "elevation": 518.0
+        "distance": 9.34435407208274,
+        "elevation": 514.0
     },
     {
-        "distance": 9.379008695183494,
-        "elevation": 511.0
+        "distance": 9.419153995308864,
+        "elevation": 509.0
     },
     {
-        "distance": 9.45711282645666,
-        "elevation": 506.0
+        "distance": 9.55256671074413,
+        "elevation": 497.0
     },
     {
-        "distance": 9.60624511744088,
-        "elevation": 491.0
-    },
-    {
-        "distance": 9.743473216381954,
+        "distance": 9.723742040457592,
         "elevation": 481.0
     },
     {
-        "distance": 9.916419188334945,
-        "elevation": 469.0
+        "distance": 9.838926380671154,
+        "elevation": 476.0
     },
     {
-        "distance": 10.075412534099726,
-        "elevation": 456.0
+        "distance": 10.01694433276403,
+        "elevation": 461.0
     },
     {
-        "distance": 10.128038290323593,
-        "elevation": 457.0
+        "distance": 10.109098063345911,
+        "elevation": 462.0
     },
     {
-        "distance": 10.22083562883771,
-        "elevation": 449.0
+        "distance": 10.140369338958873,
+        "elevation": 452.0
     },
     {
-        "distance": 10.330771008373075,
-        "elevation": 441.0
+        "distance": 10.261202870550557,
+        "elevation": 445.0
     },
     {
-        "distance": 10.443045998834462,
+        "distance": 10.345932466954565,
+        "elevation": 443.0
+    },
+    {
+        "distance": 10.46783003664398,
         "elevation": 436.0
     },
     {
-        "distance": 10.605215830745502,
-        "elevation": 438.0
-    },
-    {
-        "distance": 10.822973748513517,
+        "distance": 10.65219090881974,
         "elevation": 437.0
     },
     {
-        "distance": 11.062934721404233,
-        "elevation": 419.0
+        "distance": 10.845529328777008,
+        "elevation": 438.0
     },
     {
-        "distance": 11.176292420726567,
-        "elevation": 408.0
+        "distance": 10.963803336126178,
+        "elevation": 429.0
+    },
+    {
+        "distance": 11.161508771939422,
+        "elevation": 410.0
     },
     {
         "distance": 11.2773539425619,
         "elevation": 397.0
     },
     {
-        "distance": 11.471855145768837,
+        "distance": 11.329964706239307,
+        "elevation": 392.0
+    },
+    {
+        "distance": 11.462838797443876,
+        "elevation": 385.0
+    },
+    {
+        "distance": 11.564383976484185,
+        "elevation": 382.0
+    },
+    {
+        "distance": 11.70153275205625,
         "elevation": 384.0
     },
     {
-        "distance": 11.582764742232571,
-        "elevation": 383.0
+        "distance": 11.858370036393548,
+        "elevation": 384.0
     },
     {
-        "distance": 11.709556715043004,
-        "elevation": 385.0
-    },
-    {
-        "distance": 11.886497385713449,
-        "elevation": 385.0
-    },
-    {
-        "distance": 11.99287091589543,
+        "distance": 11.98796150449533,
         "elevation": 390.0
     },
     {
@@ -340,15 +356,15 @@
         "elevation": 391.0
     },
     {
-        "distance": 12.326021276611547,
+        "distance": 12.322149499766672,
         "elevation": 388.0
     },
     {
-        "distance": 12.438748891952232,
+        "distance": 12.408313867673968,
         "elevation": 390.0
     },
     {
-        "distance": 12.560971134395402,
+        "distance": 12.55504051279572,
         "elevation": 389.0
     },
     {
@@ -356,267 +372,267 @@
         "elevation": 378.0
     },
     {
-        "distance": 12.799893283686355,
-        "elevation": 380.0
+        "distance": 12.763877963379262,
+        "elevation": 378.0
     },
     {
-        "distance": 13.038919229421564,
-        "elevation": 375.0
-    },
-    {
-        "distance": 13.134493759888715,
-        "elevation": 375.0
-    },
-    {
-        "distance": 13.22305119715939,
+        "distance": 12.925556451952863,
         "elevation": 376.0
     },
     {
-        "distance": 13.3627695996288,
+        "distance": 13.101139279585626,
+        "elevation": 375.0
+    },
+    {
+        "distance": 13.164169220148725,
         "elevation": 374.0
     },
     {
-        "distance": 13.471281850202022,
-        "elevation": 370.0
+        "distance": 13.273294314472032,
+        "elevation": 378.0
     },
     {
-        "distance": 13.661835599560492,
-        "elevation": 371.0
+        "distance": 13.383009131925984,
+        "elevation": 373.0
     },
     {
-        "distance": 13.802796928397271,
-        "elevation": 374.0
+        "distance": 13.564153754317399,
+        "elevation": 368.0
     },
     {
-        "distance": 13.899359038748717,
-        "elevation": 379.0
+        "distance": 13.68746603350962,
+        "elevation": 372.0
     },
     {
-        "distance": 14.004821576471466,
-        "elevation": 369.0
+        "distance": 13.85052556637896,
+        "elevation": 375.0
     },
     {
-        "distance": 14.16909729966668,
+        "distance": 13.946061726255245,
+        "elevation": 373.0
+    },
+    {
+        "distance": 14.081808087204255,
+        "elevation": 367.0
+    },
+    {
+        "distance": 14.23285028446056,
         "elevation": 364.0
     },
     {
-        "distance": 14.334331989554931,
-        "elevation": 363.0
+        "distance": 14.442948262797499,
+        "elevation": 359.0
     },
     {
-        "distance": 14.513199682497518,
-        "elevation": 353.0
+        "distance": 14.567401065210685,
+        "elevation": 350.0
     },
     {
-        "distance": 14.667784871856147,
-        "elevation": 345.0
+        "distance": 14.746519844905976,
+        "elevation": 341.0
     },
     {
-        "distance": 14.806343506156042,
-        "elevation": 340.0
+        "distance": 14.85074916318357,
+        "elevation": 338.0
     },
     {
-        "distance": 14.997387347630163,
-        "elevation": 329.0
+        "distance": 15.045152494366866,
+        "elevation": 325.0
     },
     {
-        "distance": 15.139573155704474,
-        "elevation": 315.0
+        "distance": 15.196403361120332,
+        "elevation": 311.0
     },
     {
-        "distance": 15.297965855837935,
-        "elevation": 300.0
+        "distance": 15.334219351069843,
+        "elevation": 294.0
     },
     {
-        "distance": 15.4749422134504,
-        "elevation": 276.0
+        "distance": 15.522704849512355,
+        "elevation": 270.0
     },
     {
-        "distance": 15.618242672053949,
-        "elevation": 261.0
+        "distance": 15.713760845045817,
+        "elevation": 260.0
     },
     {
-        "distance": 15.904914819334223,
+        "distance": 15.938028107504971,
         "elevation": 254.0
     },
     {
-        "distance": 16.087258824158315,
+        "distance": 16.09613723943856,
         "elevation": 249.0
     },
     {
-        "distance": 16.1917368610842,
-        "elevation": 245.0
+        "distance": 16.239544350183536,
+        "elevation": 242.0
     },
     {
-        "distance": 16.415548101720827,
-        "elevation": 234.0
+        "distance": 16.45444843538344,
+        "elevation": 232.0
     },
     {
-        "distance": 16.55825905216956,
-        "elevation": 230.0
+        "distance": 16.608442737379622,
+        "elevation": 227.0
     },
     {
-        "distance": 16.70300380813611,
-        "elevation": 226.0
+        "distance": 16.775867601114168,
+        "elevation": 225.0
     },
     {
-        "distance": 16.860755167749844,
-        "elevation": 224.0
+        "distance": 16.95629666484904,
+        "elevation": 221.0
     },
     {
-        "distance": 17.051879752329274,
-        "elevation": 218.0
+        "distance": 17.125195073217274,
+        "elevation": 213.0
     },
     {
-        "distance": 17.21321650790131,
-        "elevation": 211.0
+        "distance": 17.258647065800382,
+        "elevation": 207.0
     },
     {
-        "distance": 17.338426994937628,
-        "elevation": 204.0
+        "distance": 17.481788287459754,
+        "elevation": 198.0
     },
     {
-        "distance": 17.577236569922416,
-        "elevation": 191.0
+        "distance": 17.73172369084854,
+        "elevation": 182.0
     },
     {
-        "distance": 17.750379278071296,
-        "elevation": 181.0
+        "distance": 17.827994321366894,
+        "elevation": 177.0
     },
     {
-        "distance": 17.863796273868697,
-        "elevation": 176.0
-    },
-    {
-        "distance": 18.012921421030075,
+        "distance": 17.997393513478247,
         "elevation": 173.0
     },
     {
-        "distance": 18.155142965119012,
+        "distance": 18.11823887418731,
         "elevation": 170.0
     },
     {
-        "distance": 18.338818680942868,
-        "elevation": 163.0
-    },
-    {
-        "distance": 18.467821992484854,
-        "elevation": 159.0
-    },
-    {
-        "distance": 18.644938431166736,
-        "elevation": 163.0
-    },
-    {
-        "distance": 18.867250953491464,
-        "elevation": 152.0
-    },
-    {
-        "distance": 19.097293977016427,
-        "elevation": 153.0
-    },
-    {
-        "distance": 19.24864383290711,
-        "elevation": 146.0
-    },
-    {
-        "distance": 19.382475104351347,
-        "elevation": 148.0
-    },
-    {
-        "distance": 19.595230407907753,
-        "elevation": 150.0
-    },
-    {
-        "distance": 19.72025246023319,
-        "elevation": 152.0
-    },
-    {
-        "distance": 20.040244080808712,
-        "elevation": 159.0
-    },
-    {
-        "distance": 20.266260153810222,
-        "elevation": 160.0
-    },
-    {
-        "distance": 20.441372271933723,
-        "elevation": 161.0
-    },
-    {
-        "distance": 20.690352064520916,
-        "elevation": 156.0
-    },
-    {
-        "distance": 20.844716702029977,
+        "distance": 18.245380286069178,
         "elevation": 164.0
     },
     {
-        "distance": 21.07903214698587,
+        "distance": 18.410420351443552,
+        "elevation": 161.0
+    },
+    {
+        "distance": 18.507135157356174,
+        "elevation": 161.0
+    },
+    {
+        "distance": 18.685978010260985,
+        "elevation": 161.0
+    },
+    {
+        "distance": 18.962814839913428,
+        "elevation": 150.0
+    },
+    {
+        "distance": 19.192521143549264,
+        "elevation": 149.0
+    },
+    {
+        "distance": 19.309034799238248,
+        "elevation": 147.0
+    },
+    {
+        "distance": 19.488510688329143,
+        "elevation": 146.0
+    },
+    {
+        "distance": 19.66744261066833,
+        "elevation": 150.0
+    },
+    {
+        "distance": 19.966408842210505,
+        "elevation": 154.0
+    },
+    {
+        "distance": 20.13214631858952,
+        "elevation": 160.0
+    },
+    {
+        "distance": 20.345082655768547,
+        "elevation": 159.0
+    },
+    {
+        "distance": 20.563733836377644,
+        "elevation": 159.0
+    },
+    {
+        "distance": 20.773682178626167,
+        "elevation": 158.0
+    },
+    {
+        "distance": 20.922311741386686,
+        "elevation": 166.0
+    },
+    {
+        "distance": 21.16127050342746,
+        "elevation": 161.0
+    },
+    {
+        "distance": 21.348271649639443,
         "elevation": 163.0
     },
     {
-        "distance": 21.211252844602523,
-        "elevation": 162.0
+        "distance": 21.570972785376785,
+        "elevation": 168.0
     },
     {
-        "distance": 21.447979882933193,
-        "elevation": 162.0
+        "distance": 21.72177184567928,
+        "elevation": 170.0
     },
     {
-        "distance": 21.609371055649692,
-        "elevation": 169.0
-    },
-    {
-        "distance": 21.877899533195798,
+        "distance": 22.018247138540644,
         "elevation": 167.0
     },
     {
-        "distance": 22.056309753117567,
-        "elevation": 169.0
+        "distance": 22.164538072715885,
+        "elevation": 179.0
     },
     {
-        "distance": 22.191525577513488,
-        "elevation": 180.0
+        "distance": 22.260111319944603,
+        "elevation": 182.0
     },
     {
-        "distance": 22.310512123207513,
-        "elevation": 185.0
-    },
-    {
-        "distance": 22.49913067511026,
+        "distance": 22.45133121927729,
         "elevation": 194.0
     },
     {
-        "distance": 22.69034699398422,
+        "distance": 22.594734090908634,
         "elevation": 193.0
     },
     {
-        "distance": 22.927005978119073,
+        "distance": 22.881552616114124,
         "elevation": 187.0
     },
     {
-        "distance": 23.072755768642352,
-        "elevation": 187.0
+        "distance": 23.02170618869667,
+        "elevation": 186.0
     },
     {
-        "distance": 23.22781279919123,
-        "elevation": 189.0
+        "distance": 23.207919680912536,
+        "elevation": 188.0
     },
     {
-        "distance": 23.407251887788586,
-        "elevation": 196.0
+        "distance": 23.359459383394615,
+        "elevation": 194.0
     },
     {
-        "distance": 23.589549123234345,
-        "elevation": 202.0
+        "distance": 23.509155718446593,
+        "elevation": 200.0
     },
     {
-        "distance": 23.69981020396227,
-        "elevation": 204.0
+        "distance": 23.68427945756832,
+        "elevation": 203.0
     },
     {
-        "distance": 23.80368858350067,
+        "distance": 23.78957756056627,
         "elevation": 210.0
     },
     {
@@ -624,43 +640,43 @@
         "elevation": 218.0
     },
     {
-        "distance": 24.213728894744214,
-        "elevation": 219.0
+        "distance": 24.17908979603275,
+        "elevation": 220.0
     },
     {
         "distance": 24.324379024145873,
         "elevation": 225.0
     },
     {
-        "distance": 24.58187897000523,
+        "distance": 24.553973473891805,
         "elevation": 238.0
     },
     {
-        "distance": 24.745024380258453,
-        "elevation": 240.0
-    },
-    {
-        "distance": 24.867795245472283,
+        "distance": 24.71877016526603,
         "elevation": 239.0
     },
     {
-        "distance": 24.969601689455747,
-        "elevation": 243.0
+        "distance": 24.840532241453175,
+        "elevation": 237.0
+    },
+    {
+        "distance": 24.94113005009591,
+        "elevation": 241.0
     },
     {
         "distance": 25.040773888330634,
         "elevation": 244.0
     },
     {
-        "distance": 25.253511492934233,
+        "distance": 25.222391671589524,
         "elevation": 244.0
     },
     {
-        "distance": 25.386534216817015,
+        "distance": 25.37842078100724,
         "elevation": 245.0
     },
     {
-        "distance": 25.508871410763557,
+        "distance": 25.505551815671314,
         "elevation": 245.0
     },
     {
@@ -668,31 +684,31 @@
         "elevation": 246.0
     },
     {
-        "distance": 25.73625504709989,
-        "elevation": 248.0
+        "distance": 25.74770768082456,
+        "elevation": 249.0
     },
     {
         "distance": 25.890966434404195,
         "elevation": 249.0
     },
     {
-        "distance": 26.01292758577811,
-        "elevation": 250.0
+        "distance": 26.034166163555888,
+        "elevation": 249.0
     },
     {
         "distance": 26.16905885637803,
         "elevation": 247.0
     },
     {
-        "distance": 26.272939141657897,
+        "distance": 26.267006971942106,
         "elevation": 249.0
     },
     {
-        "distance": 26.54075009863923,
-        "elevation": 251.0
+        "distance": 26.51660733378844,
+        "elevation": 252.0
     },
     {
-        "distance": 26.60755271233703,
+        "distance": 26.6185722743239,
         "elevation": 249.0
     },
     {
@@ -704,16 +720,16 @@
         "elevation": 250.0
     },
     {
-        "distance": 27.133308569455078,
-        "elevation": 262.0
+        "distance": 27.085499033581982,
+        "elevation": 259.0
     },
     {
-        "distance": 27.372335705619097,
-        "elevation": 269.0
+        "distance": 27.325784089630396,
+        "elevation": 270.0
     },
     {
-        "distance": 27.563543432861383,
-        "elevation": 275.0
+        "distance": 27.515741572099788,
+        "elevation": 273.0
     },
     {
         "distance": 27.71114005449855,
@@ -724,27 +740,27 @@
         "elevation": 290.0
     },
     {
-        "distance": 28.124051935435173,
-        "elevation": 293.0
+        "distance": 28.089273258369673,
+        "elevation": 290.0
     },
     {
-        "distance": 28.262581456199815,
-        "elevation": 295.0
+        "distance": 28.232611680357106,
+        "elevation": 292.0
     },
     {
-        "distance": 28.375909281971417,
-        "elevation": 297.0
-    },
-    {
-        "distance": 28.47153025092948,
+        "distance": 28.328163300330218,
         "elevation": 298.0
     },
     {
-        "distance": 28.628094165271,
-        "elevation": 304.0
+        "distance": 28.502134555015587,
+        "elevation": 300.0
     },
     {
-        "distance": 28.81333690184867,
+        "distance": 28.66269987090683,
+        "elevation": 306.0
+    },
+    {
+        "distance": 28.83087782044758,
         "elevation": 311.0
     },
     {
@@ -756,111 +772,115 @@
         "elevation": 316.0
     },
     {
-        "distance": 29.45230624377983,
-        "elevation": 330.0
+        "distance": 29.43205108883139,
+        "elevation": 329.0
     },
     {
         "distance": 29.622082542169412,
         "elevation": 336.0
     },
     {
-        "distance": 29.762100741911812,
-        "elevation": 337.0
+        "distance": 29.787235089125446,
+        "elevation": 339.0
     },
     {
         "distance": 29.984690892320216,
         "elevation": 344.0
     },
     {
-        "distance": 30.33577435370004,
+        "distance": 30.287968051325844,
+        "elevation": 361.0
+    },
+    {
+        "distance": 30.534612797693374,
         "elevation": 363.0
     },
     {
-        "distance": 30.574795819350747,
-        "elevation": 363.0
-    },
-    {
-        "distance": 30.703406438303833,
+        "distance": 30.670360172037615,
         "elevation": 364.0
     },
     {
-        "distance": 30.793884684649306,
-        "elevation": 363.0
+        "distance": 30.765947282544584,
+        "elevation": 364.0
     },
     {
         "distance": 30.94432564258341,
         "elevation": 365.0
     },
     {
-        "distance": 31.100533059171585,
+        "distance": 31.084422509955793,
         "elevation": 362.0
     },
     {
-        "distance": 31.315778790905412,
+        "distance": 31.291699841308716,
         "elevation": 357.0
     },
     {
-        "distance": 31.472186685948913,
-        "elevation": 360.0
-    },
-    {
-        "distance": 31.62631415646339,
-        "elevation": 359.0
-    },
-    {
-        "distance": 31.76970705418257,
-        "elevation": 356.0
-    },
-    {
-        "distance": 31.905907383023994,
-        "elevation": 357.0
-    },
-    {
-        "distance": 32.10415700723587,
-        "elevation": 365.0
-    },
-    {
-        "distance": 32.19974055943307,
-        "elevation": 362.0
-    },
-    {
-        "distance": 32.39089002726058,
+        "distance": 31.401126511835585,
         "elevation": 361.0
     },
     {
-        "distance": 32.517915301378615,
-        "elevation": 373.0
+        "distance": 31.571957888230973,
+        "elevation": 360.0
     },
     {
-        "distance": 32.6905033764119,
+        "distance": 31.76379509022164,
+        "elevation": 356.0
+    },
+    {
+        "distance": 31.887782258075642,
+        "elevation": 356.0
+    },
+    {
+        "distance": 32.023111076636496,
+        "elevation": 361.0
+    },
+    {
+        "distance": 32.192040757059466,
+        "elevation": 362.0
+    },
+    {
+        "distance": 32.314491286275384,
+        "elevation": 360.0
+    },
+    {
+        "distance": 32.49507513196786,
+        "elevation": 372.0
+    },
+    {
+        "distance": 32.6776008715654,
         "elevation": 377.0
     },
     {
-        "distance": 32.86876623949957,
-        "elevation": 385.0
+        "distance": 32.820516591994306,
+        "elevation": 381.0
     },
     {
-        "distance": 33.0599111659841,
-        "elevation": 403.0
+        "distance": 33.01213019988,
+        "elevation": 396.0
     },
     {
-        "distance": 33.268479785858666,
-        "elevation": 420.0
+        "distance": 33.15870835449267,
+        "elevation": 410.0
     },
     {
-        "distance": 33.39419948745572,
-        "elevation": 429.0
+        "distance": 33.324225927328804,
+        "elevation": 425.0
     },
     {
-        "distance": 33.59360119786313,
-        "elevation": 438.0
+        "distance": 33.44192727718812,
+        "elevation": 431.0
     },
     {
-        "distance": 33.74058074283545,
-        "elevation": 445.0
+        "distance": 33.6328741147559,
+        "elevation": 439.0
     },
     {
-        "distance": 34.00848493251638,
+        "distance": 33.80655074465194,
+        "elevation": 447.0
+    },
+    {
+        "distance": 34.01470093028799,
         "elevation": 454.0
     },
     {
@@ -880,227 +900,231 @@
         "elevation": 472.0
     },
     {
-        "distance": 35.06560629238958,
-        "elevation": 467.0
+        "distance": 35.11333842720118,
+        "elevation": 464.0
     },
     {
-        "distance": 35.161082188466196,
-        "elevation": 462.0
+        "distance": 35.23994771886693,
+        "elevation": 456.0
     },
     {
-        "distance": 35.35224554644337,
-        "elevation": 446.0
+        "distance": 35.44417308684661,
+        "elevation": 439.0
     },
     {
-        "distance": 35.49331251314033,
-        "elevation": 432.0
+        "distance": 35.55093842129562,
+        "elevation": 427.0
     },
     {
-        "distance": 35.73436890137924,
-        "elevation": 407.0
+        "distance": 35.78213258040234,
+        "elevation": 401.0
     },
     {
-        "distance": 35.9777019440317,
-        "elevation": 387.0
+        "distance": 36.04013743360629,
+        "elevation": 384.0
     },
     {
-        "distance": 36.164353493382144,
-        "elevation": 380.0
-    },
-    {
-        "distance": 36.348757863492786,
+        "distance": 36.25435531599946,
         "elevation": 377.0
     },
     {
-        "distance": 36.60438305801681,
-        "elevation": 374.0
+        "distance": 36.49873203851691,
+        "elevation": 375.0
     },
     {
-        "distance": 36.812486731642544,
-        "elevation": 360.0
+        "distance": 36.73745940503216,
+        "elevation": 364.0
     },
     {
-        "distance": 36.92841853835682,
-        "elevation": 353.0
+        "distance": 36.88064523597817,
+        "elevation": 356.0
     },
     {
-        "distance": 37.16742453478377,
-        "elevation": 336.0
+        "distance": 37.04523671524798,
+        "elevation": 345.0
     },
     {
-        "distance": 37.378288746552585,
-        "elevation": 312.0
+        "distance": 37.263034168628295,
+        "elevation": 322.0
     },
     {
-        "distance": 37.50360060779113,
-        "elevation": 305.0
+        "distance": 37.45420131090629,
+        "elevation": 307.0
     },
     {
-        "distance": 37.64912595563934,
-        "elevation": 301.0
+        "distance": 37.576401949124715,
+        "elevation": 304.0
     },
     {
-        "distance": 37.76118522849416,
+        "distance": 37.740616632155074,
         "elevation": 294.0
     },
     {
-        "distance": 38.00784841896193,
-        "elevation": 280.0
+        "distance": 37.931582629220834,
+        "elevation": 284.0
     },
     {
-        "distance": 38.14925367079732,
-        "elevation": 274.0
+        "distance": 38.12251858198354,
+        "elevation": 275.0
     },
     {
-        "distance": 38.26570614509108,
-        "elevation": 270.0
+        "distance": 38.23316500557475,
+        "elevation": 273.0
     },
     {
-        "distance": 38.4671323168645,
-        "elevation": 269.0
+        "distance": 38.431059086778845,
+        "elevation": 268.0
     },
     {
-        "distance": 38.659115419793906,
-        "elevation": 263.0
+        "distance": 38.600004924455426,
+        "elevation": 265.0
     },
     {
-        "distance": 38.79375725989594,
-        "elevation": 259.0
-    },
-    {
-        "distance": 39.024259475755024,
+        "distance": 38.765290826300564,
         "elevation": 260.0
     },
     {
-        "distance": 39.1729009134978,
-        "elevation": 256.0
+        "distance": 38.934258998871336,
+        "elevation": 260.0
     },
     {
-        "distance": 39.31617474975932,
-        "elevation": 258.0
-    },
-    {
-        "distance": 39.40101297297728,
-        "elevation": 259.0
-    },
-    {
-        "distance": 39.5778699453126,
-        "elevation": 252.0
-    },
-    {
-        "distance": 39.74801114704975,
-        "elevation": 251.0
-    },
-    {
-        "distance": 39.93668575118095,
-        "elevation": 255.0
-    },
-    {
-        "distance": 40.12768414202909,
-        "elevation": 252.0
-    },
-    {
-        "distance": 40.33436759447771,
+        "distance": 39.077439866425806,
         "elevation": 257.0
     },
     {
-        "distance": 40.5229805381181,
+        "distance": 39.22362288995398,
+        "elevation": 257.0
+    },
+    {
+        "distance": 39.37185187685474,
+        "elevation": 258.0
+    },
+    {
+        "distance": 39.50710994009327,
         "elevation": 255.0
     },
     {
-        "distance": 40.652866584744054,
-        "elevation": 256.0
-    },
-    {
-        "distance": 40.91052453497418,
-        "elevation": 255.0
-    },
-    {
-        "distance": 41.14556964761958,
-        "elevation": 251.0
-    },
-    {
-        "distance": 41.29068695214841,
-        "elevation": 249.0
-    },
-    {
-        "distance": 41.46528577783826,
-        "elevation": 248.0
-    },
-    {
-        "distance": 41.799253541967275,
-        "elevation": 251.0
-    },
-    {
-        "distance": 42.022994637118984,
-        "elevation": 253.0
-    },
-    {
-        "distance": 42.13351586754598,
-        "elevation": 251.0
-    },
-    {
-        "distance": 42.24733880988227,
+        "distance": 39.66341391174629,
         "elevation": 252.0
     },
     {
-        "distance": 42.479430012187784,
-        "elevation": 250.0
+        "distance": 39.836449796734115,
+        "elevation": 252.0
     },
     {
-        "distance": 42.61753536803976,
-        "elevation": 249.0
+        "distance": 39.98442163102184,
+        "elevation": 256.0
     },
     {
-        "distance": 42.84963770191979,
-        "elevation": 249.0
-    },
-    {
-        "distance": 43.1004684093041,
+        "distance": 40.22320072585401,
         "elevation": 255.0
     },
     {
-        "distance": 43.27971832618525,
-        "elevation": 247.0
+        "distance": 40.461886792304924,
+        "elevation": 257.0
     },
     {
-        "distance": 43.42297100907899,
-        "elevation": 245.0
+        "distance": 40.558693850593215,
+        "elevation": 255.0
     },
     {
-        "distance": 43.54157418940665,
+        "distance": 40.821470002809654,
+        "elevation": 253.0
+    },
+    {
+        "distance": 41.03210891964466,
+        "elevation": 255.0
+    },
+    {
+        "distance": 41.197017290440186,
+        "elevation": 249.0
+    },
+    {
+        "distance": 41.36928658779625,
+        "elevation": 248.0
+    },
+    {
+        "distance": 41.5125463289692,
+        "elevation": 248.0
+    },
+    {
+        "distance": 41.894803229822045,
+        "elevation": 251.0
+    },
+    {
+        "distance": 42.05496525859175,
+        "elevation": 253.0
+    },
+    {
+        "distance": 42.18714400953944,
+        "elevation": 252.0
+    },
+    {
+        "distance": 42.37220802915722,
+        "elevation": 250.0
+    },
+    {
+        "distance": 42.515431607824326,
+        "elevation": 249.0
+    },
+    {
+        "distance": 42.792135979893246,
+        "elevation": 250.0
+    },
+    {
+        "distance": 42.89742308268844,
+        "elevation": 249.0
+    },
+    {
+        "distance": 43.17187405878033,
+        "elevation": 251.0
+    },
+    {
+        "distance": 43.33103581785208,
+        "elevation": 246.0
+    },
+    {
+        "distance": 43.46047421634839,
+        "elevation": 244.0
+    },
+    {
+        "distance": 43.5699042292478,
         "elevation": 239.0
     },
     {
-        "distance": 43.723053149390296,
-        "elevation": 234.0
+        "distance": 43.71179329581475,
+        "elevation": 235.0
     },
     {
-        "distance": 43.86206790402306,
+        "distance": 43.85306823115846,
         "elevation": 231.0
     },
     {
-        "distance": 44.043991671034426,
+        "distance": 44.0263770097568,
         "elevation": 232.0
     },
     {
-        "distance": 44.21175914193853,
-        "elevation": 234.0
+        "distance": 44.177551684437894,
+        "elevation": 235.0
     },
     {
-        "distance": 44.33038724383698,
+        "distance": 44.31217997711032,
         "elevation": 233.0
     },
     {
-        "distance": 44.5212942683669,
-        "elevation": 229.0
+        "distance": 44.43824022803689,
+        "elevation": 231.0
     },
     {
-        "distance": 44.65143605810915,
-        "elevation": 226.0
+        "distance": 44.574835034725396,
+        "elevation": 228.0
     },
     {
-        "distance": 44.90315751554265,
+        "distance": 44.77410142326167,
+        "elevation": 227.0
+    },
+    {
+        "distance": 44.97069854530148,
         "elevation": 220.0
     },
     {
@@ -1108,11 +1132,11 @@
         "elevation": 214.0
     },
     {
-        "distance": 45.392744033228624,
+        "distance": 45.38027271311938,
         "elevation": 208.0
     },
     {
-        "distance": 45.52366161862707,
+        "distance": 45.51063426188382,
         "elevation": 209.0
     },
     {
@@ -1120,7 +1144,7 @@
         "elevation": 207.0
     },
     {
-        "distance": 45.81007372797001,
+        "distance": 45.803526316589995,
         "elevation": 206.0
     },
     {
@@ -1136,27 +1160,66 @@
         "elevation": 195.0
     },
     {
-        "distance": 46.66956984518122,
-        "elevation": 196.0
-    },
-    {
-        "distance": 46.81792663589808,
-        "elevation": 192.0
-    },
-    {
-        "distance": 47.003723871081135,
-        "elevation": 193.0
-    },
-    {
-        "distance": 47.24246173740305,
+        "distance": 46.629263964787576,
         "elevation": 194.0
     },
     {
-        "distance": 47.43339205885329,
+        "distance": 46.77377658560533,
+        "elevation": 195.0
+    },
+    {
+        "distance": 46.95597733095748,
+        "elevation": 193.0
+    },
+    {
+        "distance": 47.19471520115883,
+        "elevation": 196.0
+    },
+    {
+        "distance": 47.33793176368523,
+        "elevation": 191.0
+    },
+    {
+        "distance": 47.62430865495332,
         "elevation": 189.0
     },
     {
-        "distance": 47.67187606851633,
+        "distance": 47.73131898149962,
         "elevation": 189.0
+    },
+    {
+        "distance": 31.673931029124738,
+        "elevation": null,
+        "name": "Letmolivatnet badeplass"
+    },
+    {
+        "distance": 0,
+        "elevation": null,
+        "name": "Lampeland Hotell"
+    },
+    {
+        "distance": 19.345178623383323,
+        "elevation": null,
+        "name": "Bingen kapell"
+    },
+    {
+        "distance": 42.50162986640026,
+        "elevation": null,
+        "name": "Vatnebrynnvatnet friluftsomr\u00e5de og badeplass"
+    },
+    {
+        "distance": 0.5251173601621317,
+        "elevation": null,
+        "name": "Kl\u00f8fterh\u00f8len badeplass"
+    },
+    {
+        "distance": 0,
+        "elevation": null,
+        "name": "Friluftsbua"
+    },
+    {
+        "distance": 37.16742453478377,
+        "elevation": null,
+        "name": "Lyngdal kirke"
     }
 ]
