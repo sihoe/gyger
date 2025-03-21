@@ -79,7 +79,7 @@ async function loadElevationData() {
         }
     }
 
-    // Fyll hvite mellomrom for mer sammenhengende visning
+    // Fjerner hvite mellomrom mellom stolpene
     for (let i = 1; i < bgColors.length - 1; i++) {
         if (bgColors[i] === 'rgba(255,255,255,0)' && bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)') {
             bgColors[i] = bgColors[i - 1];
@@ -97,20 +97,25 @@ async function loadElevationData() {
         type: 'bar',
         data: {
             labels: distances,
-            datasets: [{
-                data: elevations,
-                backgroundColor: bgColors,
-                barPercentage: 1.6,
-                categoryPercentage: 1.0
-            },{
-                type: 'line',
-                data: elevations,
-                borderColor: "#37394E",
-                borderWidth: 4,
-                pointRadius: 0,
-                tension: 0.3,
-                fill: false
-            }]
+            datasets: [
+                {
+                    data: elevations,
+                    backgroundColor: bgColors,
+                    barPercentage: 1.8,
+                    categoryPercentage: 1.0,
+                    order: 2
+                },
+                {
+                    type: 'line',
+                    data: elevations,
+                    borderColor: "#37394E",
+                    borderWidth: 4,
+                    pointRadius: 0,
+                    tension: 0.3,
+                    fill: false,
+                    order: 1
+                }
+            ]
         },
         options: {
             responsive: true,
@@ -149,4 +154,5 @@ loadElevationData();
 
 </body>
 </html>
+
 
