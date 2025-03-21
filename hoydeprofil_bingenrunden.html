@@ -7,12 +7,13 @@
     <style>
         body { 
             font-family: Arial, sans-serif; 
-            margin: 40px auto; 
-            max-width: 900px; 
+            margin: 20px auto; 
+            max-width: 900px;
+            overflow-x: hidden;
         }
         .stats {
-            margin-top: 20px;
-            font-size: 16px;
+            margin-top: 10px;
+            font-size: 15px;
             color: #422426;
         }
         .icon {
@@ -23,7 +24,7 @@
             border-radius: 3px;
             text-align: center;
             line-height: 20px;
-            margin-right: 8px;
+            margin-right: 6px;
             color: #EEE9E0;
         }
         .triangle {
@@ -34,9 +35,10 @@
 </head>
 <body>
 
-<canvas id="elevationChart" width="900" height="350"></canvas>
+<canvas id="elevationChart"></canvas>
 
 <div class="stats">
+    <p><span class="icon">↔</span> Total lengde: <strong id="totalDistance"></strong> km</p>
     <p><span class="icon">↗</span> Stigning: <strong id="totalAscent"></strong> m</p>
     <p><span class="icon">↘</span> Fall: <strong id="totalDescent"></strong> m</p>
     <p><span class="triangle">▲</span> Høyeste punkt: <strong id="highestPoint"></strong> moh</p>
@@ -54,14 +56,17 @@ async function loadElevationData() {
 
     const highestPoint = Math.max(...elevations);
     const lowestPoint = Math.min(...elevations);
+    const totalDistance = distances[distances.length - 1];
 
     let totalAscent = 0, totalDescent = 0;
-
     const segmentColors = [];
+    const slopes = [0];
+
     for (let i = 1; i < elevations.length; i++) {
         const deltaElev = elevations[i] - elevations[i - 1];
         const deltaDist = distances[i] - distances[i - 1];
         const slope = (deltaElev / (deltaDist * 1000)) * 100;
+        slopes.push(slope.toFixed(1));
 
         if (deltaElev > 0) {
             totalAscent += deltaElev;
@@ -72,17 +77,18 @@ async function loadElevationData() {
         }
     }
 
-    // Fyll hull mellom stolper med samme farge
-    for(let i = 1; i < segmentColors.length - 1; i++){
-        if(segmentColors[i - 1] !== 'rgba(255,255,255,0)' && segmentColors[i + 1] !== 'rgba(255,255,255,0)'){
-            segmentColors[i] = segmentColors[i - 1];
+    // Fyll mellomrom
+    for(let i=1; i<segmentColors.length-1; i++){
+        if(segmentColors[i] === 'rgba(255,255,255,0)' && segmentColors[i-1] !== 'rgba(255,255,255,0)' && segmentColors[i+1] !== 'rgba(255,255,255,0)'){
+            segmentColors[i] = segmentColors[i-1];
         }
     }
 
-    document.getElementById("highestPoint").textContent = highestPoint.toFixed(1);
-    document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(1);
+    document.getElementById("highestPoint").textContent = highestPoint.toFixed(0);
+    document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(0);
     document.getElementById("totalAscent").textContent = totalAscent.toFixed(0);
     document.getElementById("totalDescent").textContent = totalDescent.toFixed(0);
+    document.getElementById("totalDistance").textContent = totalDistance.toFixed(1);
 
     const ctx = document.getElementById("elevationChart").getContext("2d");
     new Chart(ctx, {
@@ -93,33 +99,31 @@ async function loadElevationData() {
                 {
                     data: elevations,
                     backgroundColor: segmentColors,
-                    borderWidth: 0,
-                    barPercentage: 1.2,
+                    barPercentage: 1.25,
                     categoryPercentage: 1.0,
                 },
                 {
                     type: 'line',
                     data: elevations,
                     borderColor: "#37394E",
-                    borderWidth: 3,
+                    borderWidth: 4,
                     pointRadius: 0,
-                    tension: 0.4,
+                    tension: 0.3,
                     fill: false,
                 }
             ]
         },
         options: {
             responsive: true,
-            interaction: {
-                intersect: false,
-                mode: 'nearest'
-            },
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'nearest' },
             plugins: {
                 legend: { display: false },
                 tooltip: { 
+                    backgroundColor: '#37394E',
                     callbacks: {
-                        title: (tooltipItem) => `${tooltipItem[0].label.toFixed(1)} km fra start`,
-                        label: () => '' // Fjerner unødvendig info under
+                        title: (ctx) => `${ctx[0].label.toFixed(1)} km`,
+                        label: (ctx) => `${ctx.raw.toFixed(0)} moh / ${slopes[ctx.dataIndex]}%`
                     }
                 }
             },
@@ -141,6 +145,9 @@ async function loadElevationData() {
             }
         }
     });
+
+    // Juster høyden for å unngå scroll
+    document.getElementById("elevationChart").height = 280;
 }
 
 loadElevationData();
@@ -148,3 +155,4 @@ loadElevationData();
 
 </body>
 </html>
+
