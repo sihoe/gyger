@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <title>Høydeprofil</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+    }
+    #elevationChart {
+      width: 100%;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Høydeprofil for Bingenrunden</h2>
+  <canvas id="elevationChart"></canvas>
+
+  <script>
+    async function loadElevationData() {
+      const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
+      const elevationData = await response.json();
+
+      const ctx = document.getElementById("elevationChart").getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: elevationData.map(d => d.distance.toFixed(1) + " km"),
+          datasets: [{
+            label: "Høyde (m)",
+            data: elevationData.map(d => d.elevation),
+            borderColor: "blue",
+            tension: 0.2,
+            pointRadius: 1,
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: { title: { display: true, text: "Distanse" } },
+            y: { title: { display: true, text: "Høyde (m)" } }
+          }
+        }
+      });
+    }
+
+    loadElevationData();
+  </script>
+</body>
+</html>
