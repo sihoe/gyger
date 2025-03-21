@@ -6,29 +6,29 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { 
-          font-family: Arial, sans-serif; 
-          margin: 40px auto; 
-          max-width: 900px; 
+            font-family: Arial, sans-serif; 
+            margin: 40px auto; 
+            max-width: 900px; 
         }
         .stats {
-          margin-top: 20px;
-          font-size: 16px;
-          color: #422426;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #422426;
         }
         .icon {
-          display: inline-block;
-          width: 20px;
-          height: 20px;
-          background-color: #422426;
-          border-radius: 3px;
-          text-align: center;
-          line-height: 20px;
-          margin-right: 8px;
-          color: #EEE9E0;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #422426;
+            border-radius: 3px;
+            text-align: center;
+            line-height: 20px;
+            margin-right: 8px;
+            color: #EEE9E0;
         }
         .triangle {
-          font-size: 18px; 
-          color: #422426;
+            font-size: 18px; 
+            color: #422426;
         }
     </style>
 </head>
@@ -65,10 +65,17 @@ async function loadElevationData() {
 
         if (deltaElev > 0) {
             totalAscent += deltaElev;
-            segmentColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(255,255,255,1)');
+            segmentColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(255,255,255,0)');
         } else {
             totalDescent += Math.abs(deltaElev);
-            segmentColors.push('rgba(255,255,255,1)');
+            segmentColors.push('rgba(255,255,255,0)');
+        }
+    }
+
+    // Fyll hull mellom stolper med samme farge
+    for(let i = 1; i < segmentColors.length - 1; i++){
+        if(segmentColors[i - 1] !== 'rgba(255,255,255,0)' && segmentColors[i + 1] !== 'rgba(255,255,255,0)'){
+            segmentColors[i] = segmentColors[i - 1];
         }
     }
 
@@ -87,7 +94,7 @@ async function loadElevationData() {
                     data: elevations,
                     backgroundColor: segmentColors,
                     borderWidth: 0,
-                    barPercentage: 1.05,
+                    barPercentage: 1.2,
                     categoryPercentage: 1.0,
                 },
                 {
@@ -103,22 +110,33 @@ async function loadElevationData() {
         },
         options: {
             responsive: true,
+            interaction: {
+                intersect: false,
+                mode: 'nearest'
+            },
             plugins: {
                 legend: { display: false },
-                tooltip: { enabled: true }
+                tooltip: { 
+                    callbacks: {
+                        title: (tooltipItem) => `${tooltipItem[0].label.toFixed(1)} km fra start`,
+                        label: () => '' // Fjerner unødvendig info under
+                    }
+                }
             },
             scales: {
                 x: {
                     type: 'linear',
-                    title: { display: true, text: 'Distanse (km)' },
+                    title: { display: true, text: 'Distanse (km)', color:'#37394E', font:{weight:'bold'} },
                     ticks: {
+                        color:'#37394E',
                         stepSize: 2,
                         callback: value => value % 2 === 0 ? `${value} km` : ''
                     },
                     grid: { display: false }
                 },
                 y: {
-                    title: { display: true, text: 'Høyde (m)' }
+                    title: { display: true, text: 'Høyde (m)', color:'#37394E', font:{weight:'bold'} },
+                    ticks: { color:'#37394E' }
                 }
             }
         }
@@ -130,4 +148,3 @@ loadElevationData();
 
 </body>
 </html>
-
