@@ -2,13 +2,34 @@
 <html lang="no">
 <head>
     <meta charset="UTF-8" />
-    <title>Høydeprofil med ikoner og fargekoding</title>
+    <title>Høydeprofil for Bingenrunden</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; margin:40px auto; max-width: 900px; }
-        .stats { font-size: 16px; margin-top: 20px; }
-        .stats span { font-weight: bold; }
-        .symbol { font-size: 20px; vertical-align: middle; }
+        body { 
+          font-family: Arial, sans-serif; 
+          margin: 40px auto; 
+          max-width: 900px; 
+        }
+        .stats {
+          margin-top: 20px;
+          font-size: 16px;
+          color: #422426;
+        }
+        .icon {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          background-color: #422426;
+          border-radius: 3px;
+          text-align: center;
+          line-height: 20px;
+          margin-right: 8px;
+          color: #EEE9E0;
+        }
+        .triangle {
+          font-size: 18px; 
+          color: #422426;
+        }
     </style>
 </head>
 <body>
@@ -16,10 +37,10 @@
 <canvas id="elevationChart" width="900" height="350"></canvas>
 
 <div class="stats">
-    <p><span class="symbol">↗️</span> Stigning: <span id="totalAscent"></span> m</p>
-    <p><span class="symbol">↘️</span> Fall: <span id="totalDescent"></span> m</p>
-    <p><span class="symbol">△</span> Høyeste punkt: <span id="highestPoint"></span> moh</p>
-    <p><span class="symbol">▽</span> Laveste punkt: <span id="lowestPoint"></span> moh</p>
+    <p><span class="icon">↗</span> Stigning: <strong id="totalAscent"></strong> m</p>
+    <p><span class="icon">↘</span> Fall: <strong id="totalDescent"></strong> m</p>
+    <p><span class="triangle">▲</span> Høyeste punkt: <strong id="highestPoint"></strong> moh</p>
+    <p><span class="triangle">▼</span> Laveste punkt: <strong id="lowestPoint"></strong> moh</p>
 </div>
 
 <script>
@@ -28,77 +49,79 @@ async function loadElevationData() {
     const elevationData = await response.json();
 
     const routeData = elevationData.filter(d => d.elevation !== null);
-    const poiData = elevationData.filter(d => d.name);
-
     const distances = routeData.map(d => d.distance);
     const elevations = routeData.map(d => d.elevation);
 
-    // Beregn høyeste og laveste punkt
     const highestPoint = Math.max(...elevations);
     const lowestPoint = Math.min(...elevations);
 
-    // Beregn total stigning/fall og finn bratte partier
     let totalAscent = 0, totalDescent = 0;
-    const backgroundColors = [];
 
+    const segmentColors = [];
     for (let i = 1; i < elevations.length; i++) {
         const deltaElev = elevations[i] - elevations[i - 1];
         const deltaDist = distances[i] - distances[i - 1];
         const slope = (deltaElev / (deltaDist * 1000)) * 100;
 
-        if (deltaElev > 0) totalAscent += deltaElev;
-        if (deltaElev < 0) totalDescent += Math.abs(deltaElev);
-
-        // Fargekoding basert på stigning
-        if (slope > 5) backgroundColors.push('#CA6B2A');          // Bratt stigning
-        else if (slope > 2.5) backgroundColors.push('#F1B961');  // Moderat stigning
-        else backgroundColors.push('#e0e0e0');                   // Flat eller nedover
+        if (deltaElev > 0) {
+            totalAscent += deltaElev;
+            segmentColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(0,0,0,0)');
+        } else {
+            totalDescent += Math.abs(deltaElev);
+            segmentColors.push('rgba(0,0,0,0)');
+        }
     }
 
-    // Oppdater stats i HTML
     document.getElementById("highestPoint").textContent = highestPoint.toFixed(1);
     document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(1);
     document.getElementById("totalAscent").textContent = totalAscent.toFixed(0);
     document.getElementById("totalDescent").textContent = totalDescent.toFixed(0);
 
-    // Chart.js graf med fargekoding og POI
     const ctx = document.getElementById("elevationChart").getContext("2d");
-    const chart = new Chart(ctx, {
-        type: 'bar',
+    new Chart(ctx, {
+        type: 'line',
         data: {
-            labels: distances.map(d => d.toFixed(1) + " km"),
-            datasets: [{
-                label: "Høyde (m)",
-                data: elevations,
-                backgroundColor: backgroundColors,
-                borderColor: "#37394E",
-                borderWidth: 2,
-                categoryPercentage: 1.0,
-                barPercentage: 1.0,
-            }]
+            labels: distances,
+            datasets: [
+                {
+                    label: "Høydeprofil",
+                    data: elevations,
+                    borderColor: "#37394E",
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    tension: 0.4,
+                    fill: false,
+                },
+                {
+                    type: 'bar',
+                    data: elevations,
+                    backgroundColor: segmentColors,
+                    barPercentage: 1.0,
+                    categoryPercentage: 1.0,
+                }
+            ]
         },
         options: {
             responsive: true,
-            scales: {
-                x: { display: false },
-                y: { title: { display: true, text: "Høyde (m)" }}
-            },
             plugins: {
+                legend: { display: false },
                 tooltip: { enabled: true }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    title: { display: true, text: 'Distanse (km)' },
+                    ticks: {
+                        stepSize: 2,
+                        callback: value => value % 2 === 0 ? `${value} km` : ''
+                    },
+                    grid: { display: false }
+                },
+                y: {
+                    title: { display: true, text: 'Høyde (m)' }
+                }
             }
         }
-    });
-
-    // POI-ikoner (bruker enkle map-pin-ikoner som eksempel)
-    poiData.forEach(poi => {
-        const poiIndex = distances.findIndex(d => d >= poi.distance);
-        const img = new Image(20, 20);
-        img.src = "https://cdn-icons-png.flaticon.com/512/684/684908.png";
-        img.onload = () => {
-            const yPosition = chart.scales.y.getPixelForValue(elevations[poiIndex]) - 20;
-            const xPosition = chart.scales.x.getPixelForTick(poiIndex) - 10;
-            ctx.drawImage(img, xPosition, yPosition, 20, 20);
-        };
     });
 }
 
