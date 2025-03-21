@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <title>Høydeprofil med POI</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1/dist/chartjs-plugin-annotation.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; text-align: center; }
+    canvas { max-width: 900px; margin: auto; }
+  </style>
+</head>
+<body>
+  <h2>Høydeprofil for Bingenrunden med POI</h2>
+  <canvas id="elevationChart"></canvas>
+
+  <script>
+  async function loadElevationData() {
+      const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
+      const elevationData = await response.json();
+
+      const routeData = elevationData.filter(d => d.elevation !== null);
+      const poiData = elevationData.filter(d => d.name);
+
+      const ctx = document.getElementById("elevationChart").getContext("2d");
+      const chart = new Chart(ctx, {
+          type: "line",
+          data: {
+              labels: routeData.map(d => d.distance.toFixed(1) + " km"),
+              datasets: [{
+                  label: "Høyde (m)",
+                  data: routeData.map(d => d.elevation),
+                  borderColor: "blue",
+                  backgroundColor: "rgba(0,0,255,0.1)",
+                  tension: 0.2,
+                  pointRadius: 0,
+                  fill: true
+              }]
+          },
+          options: {
+              responsive: true,
+              plugins: {
+                  annotation: {
+                      annotations: poiData.map((poi, idx) => ({
+                          type: 'point',
+                          xValue: poi.distance.toFixed(1) + " km",
+                          yValue: routeData.find(d => d.distance === poi.distance)?.elevation || 0,
+                          pointStyle: new Image(24, 24),
+                          radius: 10,
+                          backgroundColor: 'transparent',
+                          content: poi.name,
+                      }))
+                  },
+                  tooltip: {
+                      callbacks: {
+                          label: function(ctx) {
+                              const poi = poiData.find(p => p.distance.toFixed(1) + " km" === ctx.label);
+                              return poi ? poi.name : ctx.formattedValue + " m";
+                          }
+                      }
+                  }
+              },
+              scales: {
+                  x: { title: { text: "Distanse (km)", display: true }},
+                  y: { title: { text: "Høyde (m)", display: true }}
+              }
+          }
+      });
+
+      // SVG-ikon som POI-markør
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M12,2A7.008,7.008,0,0,0,5,9c0,5.353,6.036,11.45,6.293,11.707l.707.707.707-.707C12.964,20.45,19,14.353,19,9A7.008,7.008,0,0,0,12,2Zm0,16.533C10.471,16.825,7,12.553,7,9A5,5,0,0,1,17,9C17,12.546,13.527,16.823,12,18.533Z"/><path d="M12,6a3,3,0,1,0,3,3A3,3,0,0,0,12,6Zm0,4a1,1,0,1,1,1-1A1,1,0,0,1,12,10Z"/></svg>`;
+
+      poiData.forEach((poi, idx) => {
+          const img = new Image();
+          img.src = 'data:image/svg+xml;base64,' + btoa(svg);
+          chart.options.plugins.annotation.annotations[idx].pointStyle = img;
+          img.onload = () => chart.update();
+      });
+  }
+  loadElevationData();
+  </script>
+</body>
+</html>
