@@ -65,10 +65,10 @@ async function loadElevationData() {
 
         if (deltaElev > 0) {
             totalAscent += deltaElev;
-            segmentColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(0,0,0,0)');
+            segmentColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(255,255,255,1)');
         } else {
             totalDescent += Math.abs(deltaElev);
-            segmentColors.push('rgba(0,0,0,0)');
+            segmentColors.push('rgba(255,255,255,1)');
         }
     }
 
@@ -79,25 +79,25 @@ async function loadElevationData() {
 
     const ctx = document.getElementById("elevationChart").getContext("2d");
     new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: distances,
             datasets: [
                 {
-                    label: "Høydeprofil",
+                    data: elevations,
+                    backgroundColor: segmentColors,
+                    borderWidth: 0,
+                    barPercentage: 1.05,
+                    categoryPercentage: 1.0,
+                },
+                {
+                    type: 'line',
                     data: elevations,
                     borderColor: "#37394E",
                     borderWidth: 3,
                     pointRadius: 0,
                     tension: 0.4,
                     fill: false,
-                },
-                {
-                    type: 'bar',
-                    data: elevations,
-                    backgroundColor: segmentColors,
-                    barPercentage: 1.0,
-                    categoryPercentage: 1.0,
                 }
             ]
         },
@@ -130,3 +130,4 @@ loadElevationData();
 
 </body>
 </html>
+
