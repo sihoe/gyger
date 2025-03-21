@@ -1,54 +1,109 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8" />
-  <title>Høydeprofil</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 40px;
-    }
-    #elevationChart {
-      width: 100%;
-      height: 300px;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <title>Høydeprofil med ikoner og fargekoding</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin:40px auto; max-width: 900px; }
+        .stats { font-size: 16px; margin-top: 20px; }
+        .stats span { font-weight: bold; }
+        .symbol { font-size: 20px; vertical-align: middle; }
+    </style>
 </head>
 <body>
-  <h2>Høydeprofil for Bingenrunden</h2>
-  <canvas id="elevationChart"></canvas>
 
-  <script>
-    async function loadElevationData() {
-      const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
-      const elevationData = await response.json();
+<canvas id="elevationChart" width="900" height="350"></canvas>
 
-      const ctx = document.getElementById("elevationChart").getContext("2d");
-      new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: elevationData.map(d => d.distance.toFixed(1) + " km"),
-          datasets: [{
-            label: "Høyde (m)",
-            data: elevationData.map(d => d.elevation),
-            borderColor: "blue",
-            tension: 0.2,
-            pointRadius: 1,
-            fill: false
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            x: { title: { display: true, text: "Distanse" } },
-            y: { title: { display: true, text: "Høyde (m)" } }
-          }
-        }
-      });
+<div class="stats">
+    <p><span class="symbol">↗️</span> Stigning: <span id="totalAscent"></span> m</p>
+    <p><span class="symbol">↘️</span> Fall: <span id="totalDescent"></span> m</p>
+    <p><span class="symbol">△</span> Høyeste punkt: <span id="highestPoint"></span> moh</p>
+    <p><span class="symbol">▽</span> Laveste punkt: <span id="lowestPoint"></span> moh</p>
+</div>
+
+<script>
+async function loadElevationData() {
+    const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
+    const elevationData = await response.json();
+
+    const routeData = elevationData.filter(d => d.elevation !== null);
+    const poiData = elevationData.filter(d => d.name);
+
+    const distances = routeData.map(d => d.distance);
+    const elevations = routeData.map(d => d.elevation);
+
+    // Beregn høyeste og laveste punkt
+    const highestPoint = Math.max(...elevations);
+    const lowestPoint = Math.min(...elevations);
+
+    // Beregn total stigning/fall og finn bratte partier
+    let totalAscent = 0, totalDescent = 0;
+    const backgroundColors = [];
+
+    for (let i = 1; i < elevations.length; i++) {
+        const deltaElev = elevations[i] - elevations[i - 1];
+        const deltaDist = distances[i] - distances[i - 1];
+        const slope = (deltaElev / (deltaDist * 1000)) * 100;
+
+        if (deltaElev > 0) totalAscent += deltaElev;
+        if (deltaElev < 0) totalDescent += Math.abs(deltaElev);
+
+        // Fargekoding basert på stigning
+        if (slope > 5) backgroundColors.push('#CA6B2A');          // Bratt stigning
+        else if (slope > 2.5) backgroundColors.push('#F1B961');  // Moderat stigning
+        else backgroundColors.push('#e0e0e0');                   // Flat eller nedover
     }
 
-    loadElevationData();
-  </script>
+    // Oppdater stats i HTML
+    document.getElementById("highestPoint").textContent = highestPoint.toFixed(1);
+    document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(1);
+    document.getElementById("totalAscent").textContent = totalAscent.toFixed(0);
+    document.getElementById("totalDescent").textContent = totalDescent.toFixed(0);
+
+    // Chart.js graf med fargekoding og POI
+    const ctx = document.getElementById("elevationChart").getContext("2d");
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: distances.map(d => d.toFixed(1) + " km"),
+            datasets: [{
+                label: "Høyde (m)",
+                data: elevations,
+                backgroundColor: backgroundColors,
+                borderColor: "#37394E",
+                borderWidth: 2,
+                categoryPercentage: 1.0,
+                barPercentage: 1.0,
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { display: false },
+                y: { title: { display: true, text: "Høyde (m)" }}
+            },
+            plugins: {
+                tooltip: { enabled: true }
+            }
+        }
+    });
+
+    // POI-ikoner (bruker enkle map-pin-ikoner som eksempel)
+    poiData.forEach(poi => {
+        const poiIndex = distances.findIndex(d => d >= poi.distance);
+        const img = new Image(20, 20);
+        img.src = "https://cdn-icons-png.flaticon.com/512/684/684908.png";
+        img.onload = () => {
+            const yPosition = chart.scales.y.getPixelForValue(elevations[poiIndex]) - 20;
+            const xPosition = chart.scales.x.getPixelForTick(poiIndex) - 10;
+            ctx.drawImage(img, xPosition, yPosition, 20, 20);
+        };
+    });
+}
+
+loadElevationData();
+</script>
+
 </body>
 </html>
