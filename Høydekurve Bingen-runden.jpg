@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8" />
+    <title>Høydeprofil for Bingenrunden</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { 
+          font-family: Arial, sans-serif; 
+          margin: 40px auto; 
+          max-width: 900px; 
+        }
+        .stats {
+          margin-top: 20px;
+          font-size: 16px;
+          color: #422426;
+        }
+        .icon {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          background-color: #422426;
+          border-radius: 3px;
+          text-align: center;
+          line-height: 20px;
+          margin-right: 8px;
+          color: #EEE9E0;
+        }
+        .triangle {
+          font-size: 18px; 
+          color: #422426;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="elevationChart" width="900" height="350"></canvas>
+
+<div class="stats">
+    <p><span class="icon">↗</span> Stigning: <strong id="totalAscent"></strong> m</p>
+    <p><span class="icon">↘</span> Fall: <strong id="totalDescent"></strong> m</p>
+    <p><span class="triangle">▲</span> Høyeste punkt: <strong id="highestPoint"></strong> moh</p>
+    <p><span class="triangle">▼</span> Laveste punkt: <strong id="lowestPoint"></strong> moh</p>
+</div>
+
+<script>
+async function loadElevationData() {
+    const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
+    const elevationData = await response.json();
+
+    const routeData = elevationData.filter(d => d.elevation !== null);
+    const distances = routeData.map(d => d.distance);
+    const elevations = routeData.map(d => d.elevation);
+
+    const highestPoint = Math.max(...elevations);
+    const lowestPoint = Math.min(...elevations);
+
+    let totalAscent = 0, totalDescent = 0;
+
+    const segmentColors = [];
+    for (let i = 1; i < elevations.length; i++) {
+        const deltaElev = elevations[i] - elevations[i - 1];
+        const deltaDist = distances[i] - distances[i - 1];
+        const slope = (deltaElev / (deltaDist * 1000)) * 100;
+
+        if (deltaElev > 0) {
+            totalAscent += deltaElev;
+            segmentColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(255,255,255,1)');
+        } else {
+            totalDescent += Math.abs(deltaElev);
+            segmentColors.push('rgba(255,255,255,1)');
+        }
+    }
+
+    document.getElementById("highestPoint").textContent = highestPoint.toFixed(1);
+    document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(1);
+    document.getElementById("totalAscent").textContent = totalAscent.toFixed(0);
+    document.getElementById("totalDescent").textContent = totalDescent.toFixed(0);
+
+    const ctx = document.getElementById("elevationChart").getContext("2d");
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: distances,
+            datasets: [
+                {
+                    data: elevations,
+                    backgroundColor: segmentColors,
+                    borderWidth: 0,
+                    barPercentage: 1.05,
+                    categoryPercentage: 1.0,
+                },
+                {
+                    type: 'line',
+                    data: elevations,
+                    borderColor: "#37394E",
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    tension: 0.4,
+                    fill: false,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: true }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    title: { display: true, text: 'Distanse (km)' },
+                    ticks: {
+                        stepSize: 2,
+                        callback: value => value % 2 === 0 ? `${value} km` : ''
+                    },
+                    grid: { display: false }
+                },
+                y: {
+                    title: { display: true, text: 'Høyde (m)' }
+                }
+            }
+        }
+    });
+}
+
+loadElevationData();
+</script>
+
+</body>
+</html>
+
