@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Høydeprofil for Bingenrunden</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             max-width: 900px;
-            margin: 0 auto;
+            margin: 40px auto;
             overflow-x: hidden;
         }
         .stats {
@@ -80,6 +80,7 @@ async function loadElevationData() {
         }
     }
 
+    // Fyll hull mellom stolper med samme farge
     for(let i = 1; i < bgColors.length - 1; i++){
         if(bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)'){
             bgColors[i] = bgColors[i - 1];
@@ -101,7 +102,7 @@ async function loadElevationData() {
                 {
                     data: elevations,
                     backgroundColor: bgColors,
-                    barPercentage: 1.0,
+                    barPercentage: 1.2, //✅ Gjør stolpene tydelige igjen!
                     categoryPercentage: 1.0,
                     order: 2
                 },
@@ -162,6 +163,7 @@ loadElevationData();
 
 </body>
 </html>
+
 
 
 
