@@ -57,7 +57,7 @@ async function loadElevationData() {
 
     const routeData = elevationData.filter(d => d.elevation !== null);
     const distances = routeData.map(d => parseFloat(d.distance));
-    const elevations = routeData.map(d => d.elevation);
+    const elevations = routeData.map(d => parseFloat(d.elevation));
 
     const highestPoint = Math.max(...elevations);
     const lowestPoint = Math.min(...elevations);
@@ -143,9 +143,11 @@ async function loadElevationData() {
                     ticks: {
                         color:'#37394E',
                         stepSize: 2,
-                        callback: value => value % 2 === 0 ? `${value} km` : ''
+                        callback: value => (value % 2 === 0) ? `${value.toFixed(0)} km` : ''
                     },
-                    grid: { display: false }
+                    grid: { display: false },
+                    min: 0,
+                    max: Math.ceil(totalDistance)
                 },
                 y: {
                     title: { display: true, text: 'Høyde (m)', color:'#37394E', font:{weight:'bold'} },
@@ -160,8 +162,6 @@ loadElevationData();
 </script>
 
 </body>
-</html>
-
 </html>
 
 
