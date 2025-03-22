@@ -15,7 +15,7 @@
             font-size: 15px;
             color: #422426;
             margin-top: 10px;
-            padding-left: 15px; /* 🔥 flytter nøkkeltallene inn på mobil */
+            padding-left: 20px; /* ✅ Flytter nøkkeltallene inn */
         }
         .icon {
             display: inline-block;
@@ -64,7 +64,8 @@ async function loadElevationData() {
     const lowestPoint = Math.min(...elevations);
     const totalDistance = distances[distances.length - 1];
 
-    let totalAscent = 0, totalDescent = 0, slopes = [0], bgColors = [];
+    let totalAscent = 0, totalDescent = 0, slopes = [0];
+    const steepAreas = [];
 
     for (let i = 1; i < elevations.length; i++) {
         const deltaElev = elevations[i] - elevations[i - 1];
@@ -74,17 +75,10 @@ async function loadElevationData() {
 
         if (deltaElev > 0) {
             totalAscent += deltaElev;
-            bgColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(255,255,255,0)');
+            steepAreas.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(0,0,0,0)');
         } else {
             totalDescent += Math.abs(deltaElev);
-            bgColors.push('rgba(255,255,255,0)');
-        }
-    }
-
-    // 🔥 NYTT: Fyller ut små hvite mellomrom effektivt!
-    for(let i = 1; i < bgColors.length - 1; i++){
-        if(bgColors[i] === 'rgba(255,255,255,0)' && bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)'){
-            bgColors[i] = bgColors[i - 1];
+            steepAreas.push('rgba(0,0,0,0)');
         }
     }
 
@@ -95,27 +89,24 @@ async function loadElevationData() {
     document.getElementById("totalDistance").textContent = totalDistance.toFixed(1);
 
     const ctx = document.getElementById("elevationChart").getContext("2d");
+
     new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: distances,
             datasets: [
                 {
-                    data: elevations,
-                    backgroundColor: bgColors,
-                    barPercentage: 1.25,  // 🔥 Økt litt mer for best mulig dekning
-                    categoryPercentage: 1.0,
-                    order: 2
-                },
-                {
-                    type: 'line',
+                    label: 'Høydeprofil',
                     data: elevations,
                     borderColor: "#37394E",
-                    borderWidth: 4,
+                    backgroundColor: (context) => {
+                        const index = context.dataIndex;
+                        return steepAreas[index] !== 'rgba(0,0,0,0)' ? steepAreas[index] : 'rgba(255,255,255,0)';
+                    },
+                    fill: true,
                     pointRadius: 0,
-                    tension: 0.4,
-                    fill: false,
-                    order: 1
+                    borderWidth: 4,
+                    tension: 0.3,
                 }
             ]
         },
@@ -164,6 +155,7 @@ loadElevationData();
 
 </body>
 </html>
+
 
 
 
