@@ -15,6 +15,7 @@
             font-size: 15px;
             color: #422426;
             margin-top: 10px;
+            padding-left: 15px; /* 🔥 flytter nøkkeltallene inn på mobil */
         }
         .icon {
             display: inline-block;
@@ -80,9 +81,9 @@ async function loadElevationData() {
         }
     }
 
-    // Fyll hull mellom stolper med samme farge
+    // 🔥 NYTT: Fyller ut små hvite mellomrom effektivt!
     for(let i = 1; i < bgColors.length - 1; i++){
-        if(bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)'){
+        if(bgColors[i] === 'rgba(255,255,255,0)' && bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)'){
             bgColors[i] = bgColors[i - 1];
         }
     }
@@ -102,7 +103,7 @@ async function loadElevationData() {
                 {
                     data: elevations,
                     backgroundColor: bgColors,
-                    barPercentage: 1.2, //✅ Gjør stolpene tydelige igjen!
+                    barPercentage: 1.25,  // 🔥 Økt litt mer for best mulig dekning
                     categoryPercentage: 1.0,
                     order: 2
                 },
@@ -163,6 +164,7 @@ loadElevationData();
 
 </body>
 </html>
+
 
 
 
