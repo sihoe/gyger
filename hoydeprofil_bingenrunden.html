@@ -15,7 +15,7 @@
             font-size: 15px;
             color: #422426;
             margin-top: 10px;
-            padding-left: 20px; /* ✅ Flytter nøkkeltallene inn */
+            padding-left: 40px; /* ✅ Flytter nøkkeltallene tydelig inn */
         }
         .icon {
             display: inline-block;
@@ -56,16 +56,14 @@ async function loadElevationData() {
     const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
     const elevationData = await response.json();
 
-    const routeData = elevationData.filter(d => d.elevation !== null);
-    const distances = routeData.map(d => parseFloat(d.distance));
-    const elevations = routeData.map(d => parseFloat(d.elevation));
+    const distances = elevationData.map(d => parseFloat(d.distance));
+    const elevations = elevationData.map(d => parseFloat(d.elevation));
 
     const highestPoint = Math.max(...elevations);
     const lowestPoint = Math.min(...elevations);
     const totalDistance = distances[distances.length - 1];
 
-    let totalAscent = 0, totalDescent = 0, slopes = [0];
-    const steepAreas = [];
+    let totalAscent = 0, totalDescent = 0, slopes = [0], bgColors = [];
 
     for (let i = 1; i < elevations.length; i++) {
         const deltaElev = elevations[i] - elevations[i - 1];
@@ -75,10 +73,17 @@ async function loadElevationData() {
 
         if (deltaElev > 0) {
             totalAscent += deltaElev;
-            steepAreas.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(0,0,0,0)');
+            bgColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(0,0,0,0)');
         } else {
             totalDescent += Math.abs(deltaElev);
-            steepAreas.push('rgba(0,0,0,0)');
+            bgColors.push('rgba(0,0,0,0)');
+        }
+    }
+
+    // Sikre at områdene med stigning blir fylt ut uten hvite mellomrom
+    for(let i = 1; i < bgColors.length - 1; i++){
+        if(bgColors[i] === 'rgba(0,0,0,0)' && bgColors[i - 1] !== 'rgba(0,0,0,0)' && bgColors[i + 1] !== 'rgba(0,0,0,0)'){
+            bgColors[i] = bgColors[i - 1];
         }
     }
 
@@ -89,24 +94,27 @@ async function loadElevationData() {
     document.getElementById("totalDistance").textContent = totalDistance.toFixed(1);
 
     const ctx = document.getElementById("elevationChart").getContext("2d");
-
     new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: distances,
             datasets: [
                 {
-                    label: 'Høydeprofil',
+                    data: elevations,
+                    backgroundColor: bgColors,
+                    barPercentage: 1.4,
+                    categoryPercentage: 1.0,
+                    order: 2
+                },
+                {
+                    type: 'line',
                     data: elevations,
                     borderColor: "#37394E",
-                    backgroundColor: (context) => {
-                        const index = context.dataIndex;
-                        return steepAreas[index] !== 'rgba(0,0,0,0)' ? steepAreas[index] : 'rgba(255,255,255,0)';
-                    },
-                    fill: true,
-                    pointRadius: 0,
                     borderWidth: 4,
+                    pointRadius: 0,
                     tension: 0.3,
+                    fill: false,
+                    order: 1
                 }
             ]
         },
@@ -155,6 +163,7 @@ loadElevationData();
 
 </body>
 </html>
+
 
 
 
