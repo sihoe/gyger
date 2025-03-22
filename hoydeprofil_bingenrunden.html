@@ -55,7 +55,7 @@ async function loadElevationData() {
     const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
     const elevationData = await response.json();
 
-    const distances = elevationData.map(d => d.distance);
+    const distances = elevationData.map(d => parseFloat(d.distance)); // Sikrer at alle avstander tolkes som tall
     const elevations = elevationData.map(d => d.elevation);
 
     const highestPoint = Math.max(...elevations);
@@ -79,7 +79,6 @@ async function loadElevationData() {
         }
     }
 
-    // Fjern tynne hvite mellomrom mellom stolper
     for (let i = 1; i < bgColors.length - 1; i++) {
         if (bgColors[i] === 'rgba(255,255,255,0)' && bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)') {
             bgColors[i] = bgColors[i - 1];
@@ -96,12 +95,12 @@ async function loadElevationData() {
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: distances.map(d => d.toFixed(1)),
+            labels: distances,
             datasets: [
                 {
                     data: elevations,
                     backgroundColor: bgColors,
-                    barPercentage: 1.6,
+                    barPercentage: 1.5,
                     categoryPercentage: 1.0,
                     order: 2
                 },
@@ -137,9 +136,10 @@ async function loadElevationData() {
                     ticks: {
                         color:'#37394E',
                         autoSkip: false,
-                        callback: (value, index) => {
-                            const distance = parseFloat(distances[index]);
-                            return distance % 2 === 0 ? `${distance.toFixed(0)} km` : '';
+                        maxTicksLimit: distances.length / 2,
+                        callback: function(val, index) {
+                            const km = distances[index];
+                            return (km % 2 === 0) ? `${km.toFixed(0)} km` : '';
                         }
                     },
                     grid: { display: false }
@@ -157,4 +157,5 @@ loadElevationData();
 
 </body>
 </html>
+
 
