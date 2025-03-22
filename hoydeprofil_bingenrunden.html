@@ -15,7 +15,7 @@
             font-size: 15px;
             color: #422426;
             margin-top: 10px;
-            padding-left: 40px; /* ✅ Flytter nøkkeltallene tydelig inn */
+            padding-left: 40px; /* Flyttet innover */
         }
         .icon {
             display: inline-block;
@@ -73,16 +73,16 @@ async function loadElevationData() {
 
         if (deltaElev > 0) {
             totalAscent += deltaElev;
-            bgColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(0,0,0,0)');
+            bgColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'transparent');
         } else {
             totalDescent += Math.abs(deltaElev);
-            bgColors.push('rgba(0,0,0,0)');
+            bgColors.push('transparent');
         }
     }
 
-    // Sikre at områdene med stigning blir fylt ut uten hvite mellomrom
+    // Fyller ut hvite områder mellom stolper med farge
     for(let i = 1; i < bgColors.length - 1; i++){
-        if(bgColors[i] === 'rgba(0,0,0,0)' && bgColors[i - 1] !== 'rgba(0,0,0,0)' && bgColors[i + 1] !== 'rgba(0,0,0,0)'){
+        if(bgColors[i] === 'transparent' && bgColors[i - 1] !== 'transparent' && bgColors[i + 1] !== 'transparent'){
             bgColors[i] = bgColors[i - 1];
         }
     }
@@ -102,7 +102,7 @@ async function loadElevationData() {
                 {
                     data: elevations,
                     backgroundColor: bgColors,
-                    barPercentage: 1.4,
+                    barPercentage: 1.2,
                     categoryPercentage: 1.0,
                     order: 2
                 },
@@ -112,7 +112,7 @@ async function loadElevationData() {
                     borderColor: "#37394E",
                     borderWidth: 4,
                     pointRadius: 0,
-                    tension: 0.3,
+                    tension: 0.4,
                     fill: false,
                     order: 1
                 }
@@ -163,6 +163,7 @@ loadElevationData();
 
 </body>
 </html>
+
 
 
 
