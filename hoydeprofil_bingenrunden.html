@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             max-width: 900px;
             margin: 0 auto;
+            overflow-x: hidden;
         }
         .stats {
             font-size: 15px;
@@ -31,8 +32,8 @@
             color: #422426;
         }
         canvas {
-            max-height: 500px;
-            height: 500px !important;
+            max-height: 400px;
+            height: 400px !important;
             width: 100% !important;
         }
     </style>
@@ -51,28 +52,38 @@
 
 <script>
 async function loadElevationData() {
-    const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json?version=3");
+    const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
     const elevationData = await response.json();
 
-    const distances = elevationData.map(d => d.distance);
+    const distances = elevationData.map(d => parseFloat(d.distance.toFixed(1)));
     const elevations = elevationData.map(d => d.elevation);
 
     const highestPoint = Math.max(...elevations);
     const lowestPoint = Math.min(...elevations);
     const totalDistance = distances[distances.length - 1];
 
-    let totalAscent = 0, totalDescent = 0, slopes = [0];
+    let totalAscent = 0, totalDescent = 0, slopes = [0], bgColors = [];
 
-    elevations.forEach((el, i) => {
-        if (i > 0) {
-            const deltaElev = el - elevations[i - 1];
-            const deltaDist = distances[i] - distances[i - 1];
-            const slope = (deltaElev / (deltaDist * 1000)) * 100;
-            slopes.push(slope);
-            if (deltaElev > 0) totalAscent += deltaElev;
-            if (deltaElev < 0) totalDescent += Math.abs(deltaElev);
+    for (let i = 1; i < elevations.length; i++) {
+        const deltaElev = elevations[i] - elevations[i - 1];
+        const deltaDist = distances[i] - distances[i - 1];
+        const slope = (deltaElev / (deltaDist * 1000)) * 100;
+        slopes.push(slope);
+
+        if (deltaElev > 0) {
+            totalAscent += deltaElev;
+            bgColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(255,255,255,0)');
+        } else {
+            totalDescent += Math.abs(deltaElev);
+            bgColors.push('rgba(255,255,255,0)');
         }
-    });
+    }
+
+    for (let i = 1; i < bgColors.length - 1; i++) {
+        if (bgColors[i] === 'rgba(255,255,255,0)' && bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)') {
+            bgColors[i] = bgColors[i - 1];
+        }
+    }
 
     document.getElementById("highestPoint").textContent = highestPoint.toFixed(0);
     document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(0);
@@ -81,26 +92,29 @@ async function loadElevationData() {
     document.getElementById("totalDistance").textContent = totalDistance.toFixed(1);
 
     const ctx = document.getElementById("elevationChart").getContext("2d");
-
     new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: distances,
-            datasets: [{
-                data: elevations,
-                borderColor: "#37394E",
-                borderWidth: 4,
-                pointRadius: 0,
-                tension: 0.3,
-                fill: true,
-                backgroundColor: ctx => {
-                    const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, ctx.chart.height);
-                    gradient.addColorStop(0, 'rgba(241,185,97,0.5)');
-                    gradient.addColorStop(0.5, 'rgba(202,107,42,0.5)');
-                    gradient.addColorStop(1, 'rgba(255,255,255,0)');
-                    return gradient;
+            datasets: [
+                {
+                    data: elevations,
+                    backgroundColor: bgColors,
+                    barPercentage: 1.1,
+                    categoryPercentage: 1.0,
+                    order: 2
+                },
+                {
+                    type: 'line',
+                    data: elevations,
+                    borderColor: "#37394E",
+                    borderWidth: 4,
+                    pointRadius: 0,
+                    tension: 0.3,
+                    fill: false,
+                    order: 1
                 }
-            }]
+            ]
         },
         options: {
             responsive: true,
@@ -122,7 +136,8 @@ async function loadElevationData() {
                     ticks: {
                         color:'#37394E',
                         autoSkip: true,
-                        maxTicksLimit: 24
+                        maxTicksLimit: 24,
+                        callback: (val) => val + ' km'
                     },
                     grid: { display: false }
                 },
@@ -139,4 +154,3 @@ loadElevationData();
 
 </body>
 </html>
-
