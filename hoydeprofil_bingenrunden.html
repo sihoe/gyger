@@ -55,7 +55,7 @@ async function loadElevationData() {
     const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
     const elevationData = await response.json();
 
-    const distances = elevationData.map(d => parseFloat(d.distance)); // Sikrer at alle avstander tolkes som tall
+    const distances = elevationData.map(d => parseFloat(d.distance));
     const elevations = elevationData.map(d => d.elevation);
 
     const highestPoint = Math.max(...elevations);
@@ -135,11 +135,11 @@ async function loadElevationData() {
                     title: { display: true, text: 'Distanse (km)', color:'#37394E', font:{weight:'bold'} },
                     ticks: {
                         color:'#37394E',
-                        autoSkip: false,
-                        maxTicksLimit: distances.length / 2,
-                        callback: function(val, index) {
+                        autoSkip: true,
+                        maxTicksLimit: 25,
+                        callback: function(value, index) {
                             const km = distances[index];
-                            return (km % 2 === 0) ? `${km.toFixed(0)} km` : '';
+                            return km % 2 < 0.1 ? `${km.toFixed(0)} km` : '';
                         }
                     },
                     grid: { display: false }
@@ -157,5 +157,6 @@ loadElevationData();
 
 </body>
 </html>
+
 
 
