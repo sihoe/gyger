@@ -1,176 +1,199 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-    <meta charset="UTF-8">
-    <title>Høydeprofil for Bingenrunden</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 0 auto;
-            overflow-x: hidden;
-        }
-        .stats {
-            font-size: 15px;
-            color: #422426;
-            margin-top: 10px;
-        }
-        .icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-color: #422426;
-            color: #EEE9E0;
-            border-radius: 3px;
-            text-align: center;
-            line-height: 20px;
-            margin-right: 6px;
-        }
-        .triangle {
-            font-size: 18px; 
-            color: #422426;
-        }
-        canvas {
-            max-height: 400px;
-            height: 400px !important;
-            width: 100% !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Høydeprofil for Bingenrunden</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .chart-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 1; /* Endre til 2.5 / 1 eller 4 / 1 hvis du ønsker flatere profil */
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .stats {
+      font-size: 15px;
+      color: #422426;
+      margin: 10px auto;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: #422426;
+      color: #EEE9E0;
+      border-radius: 3px;
+      text-align: center;
+      line-height: 20px;
+      margin-right: 6px;
+    }
+
+    .triangle {
+      font-size: 18px;
+      color: #422426;
+    }
+  </style>
 </head>
 <body>
 
-<canvas id="elevationChart"></canvas>
+  <div class="chart-wrapper">
+    <canvas id="elevationChart"></canvas>
+  </div>
 
-<div class="stats">
+  <div class="stats">
     <p><span class="icon">↔</span> Total lengde: <strong id="totalDistance"></strong> km</p>
     <p><span class="icon">↗</span> Stigning: <strong id="totalAscent"></strong> m</p>
     <p><span class="icon">↘</span> Fall: <strong id="totalDescent"></strong> m</p>
     <p><span class="triangle">▲</span> Høyeste punkt: <strong id="highestPoint"></strong> moh</p>
     <p><span class="triangle">▼</span> Laveste punkt: <strong id="lowestPoint"></strong> moh</p>
-</div>
+  </div>
 
-<script>
-async function loadElevationData() {
-    const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
-    const elevationData = await response.json();
+  <script>
+    async function loadElevationData() {
+      const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
+      const elevationData = await response.json();
 
-    const routeData = elevationData.filter(d => d.elevation !== null);
-    const distances = routeData.map(d => parseFloat(d.distance));
-    const elevations = routeData.map(d => parseFloat(d.elevation));
+      const routeData = elevationData.filter(d => d.elevation !== null);
+      const distances = routeData.map(d => parseFloat(d.distance));
+      const elevations = routeData.map(d => parseFloat(d.elevation));
 
-    const highestPoint = Math.max(...elevations);
-    const lowestPoint = Math.min(...elevations);
-    const totalDistance = distances[distances.length - 1];
+      const highestPoint = Math.max(...elevations);
+      const lowestPoint = Math.min(...elevations);
+      const totalDistance = distances[distances.length - 1];
 
-    let totalAscent = 0, totalDescent = 0, slopes = [0];
+      let totalAscent = 0, totalDescent = 0, slopes = [0];
 
-    for (let i = 1; i < elevations.length; i++) {
+      for (let i = 1; i < elevations.length; i++) {
         const deltaElev = elevations[i] - elevations[i - 1];
         const deltaDist = distances[i] - distances[i - 1];
         const slope = (deltaElev / (deltaDist * 1000)) * 100;
         slopes.push(slope);
 
         if (deltaElev > 0) {
-            totalAscent += deltaElev;
+          totalAscent += deltaElev;
         } else {
-            totalDescent += Math.abs(deltaElev);
+          totalDescent += Math.abs(deltaElev);
         }
-    }
+      }
 
-    // Farger for ulike stigningsnivåer
-    const steepClimb = elevations.map((e, i) => slopes[i] > 5 ? e : null);
-    const moderateClimb = elevations.map((e, i) => (slopes[i] > 2.5 && slopes[i] <= 5) ? e : null);
+      const steepClimb = elevations.map((e, i) => slopes[i] > 5 ? e : null);
+      const moderateClimb = elevations.map((e, i) => (slopes[i] > 2.5 && slopes[i] <= 5) ? e : null);
 
-    document.getElementById("highestPoint").textContent = highestPoint.toFixed(0);
-    document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(0);
-    document.getElementById("totalAscent").textContent = totalAscent.toFixed(0);
-    document.getElementById("totalDescent").textContent = totalDescent.toFixed(0);
-    document.getElementById("totalDistance").textContent = totalDistance.toFixed(1);
+      document.getElementById("highestPoint").textContent = highestPoint.toFixed(0);
+      document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(0);
+      document.getElementById("totalAscent").textContent = totalAscent.toFixed(0);
+      document.getElementById("totalDescent").textContent = totalDescent.toFixed(0);
+      document.getElementById("totalDistance").textContent = totalDistance.toFixed(1);
 
-    const ctx = document.getElementById("elevationChart").getContext("2d");
-    new Chart(ctx, {
+      const ctx = document.getElementById("elevationChart").getContext("2d");
+      new Chart(ctx, {
         type: 'line',
         data: {
-            labels: distances,
-            datasets: [
-                // Fyll for bratt stigning (>5%)
-                {
-                    label: 'Bratt stigning',
-                    data: steepClimb,
-                    borderColor: 'transparent',
-                    backgroundColor: 'rgba(202, 107, 42, 0.6)', // mørk oransje
-                    pointRadius: 0,
-                    tension: 0.4,
-                    fill: { target: 'origin', above: 'rgba(202, 107, 42, 0.6)' },
-                    order: 1
-                },
-                // Fyll for moderat stigning (2.5%–5%)
-                {
-                    label: 'Moderat stigning',
-                    data: moderateClimb,
-                    borderColor: 'transparent',
-                    backgroundColor: 'rgba(241, 185, 97, 0.6)', // lys oransje
-                    pointRadius: 0,
-                    tension: 0.4,
-                    fill: { target: 'origin', above: 'rgba(241, 185, 97, 0.6)' },
-                    order: 1
-                },
-                // Selve høydekurven
-                {
-                    label: 'Høydeprofil',
-                    data: elevations,
-                    borderColor: "#37394E",
-                    borderWidth: 4,
-                    pointRadius: 0,
-                    tension: 0.4,
-                    fill: false,
-                    order: 2
-                }
-            ]
+          labels: distances,
+          datasets: [
+            {
+              label: 'Bratt stigning',
+              data: steepClimb,
+              borderColor: 'transparent',
+              backgroundColor: 'rgba(202, 107, 42, 0.6)',
+              pointRadius: 0,
+              tension: 0.4,
+              fill: { target: 'origin', above: 'rgba(202, 107, 42, 0.6)' },
+              order: 1
+            },
+            {
+              label: 'Moderat stigning',
+              data: moderateClimb,
+              borderColor: 'transparent',
+              backgroundColor: 'rgba(241, 185, 97, 0.6)',
+              pointRadius: 0,
+              tension: 0.4,
+              fill: { target: 'origin', above: 'rgba(241, 185, 97, 0.6)' },
+              order: 1
+            },
+            {
+              label: 'Høydeprofil',
+              data: elevations,
+              borderColor: "#37394E",
+              borderWidth: 4,
+              pointRadius: 0,
+              tension: 0.4,
+              fill: false,
+              order: 2
+            }
+          ]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            interaction: {
-                intersect: false,
-                mode: 'nearest'
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: '#37394E',
-                    displayColors: false,
-                    callbacks: {
-                        title: ctx => `${parseFloat(ctx[0].label).toFixed(1)} km`,
-                        label: ctx => `${ctx.raw?.toFixed(0)} moh / ${slopes[ctx.dataIndex].toFixed(1)}%`
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    type: 'linear',
-                    title: { display: true, text: 'Distanse (km)', color:'#37394E', font:{weight:'bold'} },
-                    ticks: {
-                        color:'#37394E',
-                        stepSize: 2,
-                        callback: value => (value % 2 === 0) ? `${value.toFixed(0)} km` : ''
-                    },
-                    grid: { display: false },
-                    min: 0,
-                    max: Math.ceil(totalDistance)
-                },
-                y: {
-                    title: { display: true, text: 'Høyde (m)', color:'#37394E', font:{weight:'bold'} },
-                    ticks: { color:'#37394E' }
-                }
+          responsive: true,
+          maintainAspectRatio: true,
+          interaction: {
+            intersect: false,
+            mode: 'nearest'
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#37394E',
+              displayColors: false,
+              callbacks: {
+                title: ctx => `${parseFloat(ctx[0].label).toFixed(1)} km`,
+                label: ctx => `${ctx.raw?.toFixed(0)} moh / ${slopes[ctx.dataIndex].toFixed(1)}%`
+              }
             }
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              title: {
+                display: true,
+                text: 'Distanse (km)',
+                color: '#37394E',
+                font: { weight: 'bold' }
+              },
+              ticks: {
+                color: '#37394E',
+                stepSize: 2,
+                callback: value => (value % 2 === 0) ? `${value.toFixed(0)} km` : ''
+              },
+              grid: { display: false },
+              min: 0,
+              max: Math.ceil(totalDistance)
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Høyde (m)',
+                color: '#37394E',
+                font: { weight: 'bold' }
+              },
+              ticks: { color: '#37394E' }
+            }
+          }
         }
-    });
-}
+      });
+    }
 
-loadElevationData();
-</script>
-
+    loadElevationData();
+  </script>
 </body>
 </html>
+
+
