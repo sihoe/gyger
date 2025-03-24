@@ -63,7 +63,7 @@ async function loadElevationData() {
     const lowestPoint = Math.min(...elevations);
     const totalDistance = distances[distances.length - 1];
 
-    let totalAscent = 0, totalDescent = 0, slopes = [0];
+    let totalAscent = 0, totalDescent = 0, slopes = [0], steepColors = [];
 
     for (let i = 1; i < elevations.length; i++) {
         const deltaElev = elevations[i] - elevations[i - 1];
@@ -73,7 +73,12 @@ async function loadElevationData() {
 
         if (deltaElev > 0) totalAscent += deltaElev;
         else totalDescent += Math.abs(deltaElev);
+
+        if (slope > 5) steepColors.push('rgba(202,107,42,0.7)');
+        else if (slope > 2.5) steepColors.push('rgba(241,185,97,0.7)');
+        else steepColors.push('rgba(0,0,0,0)');
     }
+    steepColors[0] = 'rgba(0,0,0,0)';
 
     document.getElementById("highestPoint").textContent = highestPoint.toFixed(0);
     document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(0);
@@ -87,22 +92,24 @@ async function loadElevationData() {
         type: 'line',
         data: {
             labels: distances,
-            datasets: [{
-                label: 'Elevation',
-                data: elevations,
-                borderColor: "#37394E",
-                borderWidth: 3,
-                pointRadius: 0,
-                tension: 0.3,
-                fill: true,
-                backgroundColor: '#dddfe4'
-            }, {
-                type: 'bar',
-                data: elevations,
-                backgroundColor: slopes.map(s => s > 5 ? '#CA6B2A' : s > 2.5 ? '#F1B961' : 'rgba(0,0,0,0)'),
-                barPercentage: 1.1,
-                categoryPercentage: 1.0
-            }]
+            datasets: [
+                {
+                    data: elevations,
+                    borderColor: "#37394E",
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    tension: 0.3,
+                    fill: true,
+                    backgroundColor: '#dddfe4',
+                },
+                {
+                    data: elevations,
+                    borderWidth: 0,
+                    pointRadius: 0,
+                    fill: true,
+                    backgroundColor: steepColors,
+                }
+            ]
         },
         options: {
             responsive: true,
