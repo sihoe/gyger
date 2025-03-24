@@ -63,7 +63,7 @@ async function loadElevationData() {
     const lowestPoint = Math.min(...elevations);
     const totalDistance = distances[distances.length - 1];
 
-    let totalAscent = 0, totalDescent = 0, slopes = [0], steepColors = [];
+    let totalAscent = 0, totalDescent = 0, slopes = [0];
 
     for (let i = 1; i < elevations.length; i++) {
         const deltaElev = elevations[i] - elevations[i - 1];
@@ -73,12 +73,7 @@ async function loadElevationData() {
 
         if (deltaElev > 0) totalAscent += deltaElev;
         else totalDescent += Math.abs(deltaElev);
-
-        if (slope > 5) steepColors.push('rgba(202,107,42,0.7)');
-        else if (slope > 2.5) steepColors.push('rgba(241,185,97,0.7)');
-        else steepColors.push('rgba(0,0,0,0)');
     }
-    steepColors[0] = 'rgba(0,0,0,0)';
 
     document.getElementById("highestPoint").textContent = highestPoint.toFixed(0);
     document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(0);
@@ -100,14 +95,22 @@ async function loadElevationData() {
                     pointRadius: 0,
                     tension: 0.3,
                     fill: true,
-                    backgroundColor: '#dddfe4',
+                    backgroundColor: '#dddfe4'
                 },
                 {
                     data: elevations,
                     borderWidth: 0,
                     pointRadius: 0,
+                    tension: 0.3,
                     fill: true,
-                    backgroundColor: steepColors,
+                    segment: {
+                        backgroundColor: ctx => {
+                            const slope = slopes[ctx.p0DataIndex];
+                            if (slope > 5) return '#CA6B2A';
+                            if (slope > 2.5) return '#F1B961';
+                            return 'rgba(0,0,0,0)';
+                        }
+                    }
                 }
             ]
         },
