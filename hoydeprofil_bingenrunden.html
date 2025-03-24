@@ -63,27 +63,16 @@ async function loadElevationData() {
     const lowestPoint = Math.min(...elevations);
     const totalDistance = distances[distances.length - 1];
 
-    let totalAscent = 0, totalDescent = 0, slopes = [0], bgColors = [];
+    let totalAscent = 0, totalDescent = 0, slopes = [0];
 
     for (let i = 1; i < elevations.length; i++) {
         const deltaElev = elevations[i] - elevations[i - 1];
-        const deltaDist = distances[i] - distances[i - 1];
-        const slope = (deltaElev / (deltaDist * 1000)) * 100;
+        const deltaDist = (distances[i] - distances[i - 1]) * 1000;
+        const slope = (deltaElev / deltaDist) * 100;
         slopes.push(slope);
 
-        if (deltaElev > 0) {
-            totalAscent += deltaElev;
-            bgColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'rgba(255,255,255,0)');
-        } else {
-            totalDescent += Math.abs(deltaElev);
-            bgColors.push('rgba(255,255,255,0)');
-        }
-    }
-
-    for(let i = 1; i < bgColors.length - 1; i++){
-        if(bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)'){
-            bgColors[i] = bgColors[i - 1];
-        }
+        if (deltaElev > 0) totalAscent += deltaElev;
+        else totalDescent += Math.abs(deltaElev);
     }
 
     document.getElementById("highestPoint").textContent = highestPoint.toFixed(0);
@@ -93,37 +82,29 @@ async function loadElevationData() {
     document.getElementById("totalDistance").textContent = totalDistance.toFixed(1);
 
     const ctx = document.getElementById("elevationChart").getContext("2d");
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, '#CA6B2A');
+    gradient.addColorStop(0.5, '#F1B961');
+    gradient.addColorStop(1, '#dddfe4');
+
     new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: distances,
-            datasets: [
-                {
-                    data: elevations,
-                    backgroundColor: bgColors,
-                    barPercentage: 1.0,
-                    categoryPercentage: 1.0,
-                    order: 2
-                },
-                {
-                    type: 'line',
-                    data: elevations,
-                    borderColor: "#37394E",
-                    borderWidth: 4,
-                    pointRadius: 0,
-                    tension: 0.4,
-                    fill: false,
-                    order: 1
-                }
-            ]
+            datasets: [{
+                data: elevations,
+                borderColor: "#37394E",
+                borderWidth: 4,
+                pointRadius: 0,
+                tension: 0.4,
+                fill: true,
+                backgroundColor: gradient
+            }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            interaction: {
-                intersect: false,
-                mode: 'nearest'
-            },
+            interaction: { intersect: false, mode: 'nearest' },
             plugins: {
                 legend: { display: false },
                 tooltip: {
@@ -139,11 +120,7 @@ async function loadElevationData() {
                 x: {
                     type: 'linear',
                     title: { display: true, text: 'Distanse (km)', color:'#37394E', font:{weight:'bold'} },
-                    ticks: {
-                        color:'#37394E',
-                        stepSize: 2,
-                        callback: value => (value % 2 === 0) ? `${value.toFixed(0)} km` : ''
-                    },
+                    ticks: { color:'#37394E', stepSize: 2, callback: value => (value % 2 === 0) ? `${value.toFixed(0)} km` : '' },
                     grid: { display: false },
                     min: 0,
                     max: Math.ceil(totalDistance)
@@ -162,4 +139,5 @@ loadElevationData();
 
 </body>
 </html>
+
 
