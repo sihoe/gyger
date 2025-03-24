@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Høydeprofil for Bingenrunden</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             max-width: 900px;
-            margin: 40px auto;
+            margin: 0 auto;
             overflow-x: hidden;
         }
         .stats {
             font-size: 15px;
             color: #422426;
             margin-top: 10px;
-            padding-left: 15px; /* 🔥 flytter nøkkeltallene inn på mobil */
         }
         .icon {
             display: inline-block;
@@ -81,9 +80,8 @@ async function loadElevationData() {
         }
     }
 
-    // 🔥 NYTT: Fyller ut små hvite mellomrom effektivt!
     for(let i = 1; i < bgColors.length - 1; i++){
-        if(bgColors[i] === 'rgba(255,255,255,0)' && bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)'){
+        if(bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)'){
             bgColors[i] = bgColors[i - 1];
         }
     }
@@ -103,7 +101,7 @@ async function loadElevationData() {
                 {
                     data: elevations,
                     backgroundColor: bgColors,
-                    barPercentage: 1.25,  // 🔥 Økt litt mer for best mulig dekning
+                    barPercentage: 1.0,
                     categoryPercentage: 1.0,
                     order: 2
                 },
@@ -164,3 +162,4 @@ loadElevationData();
 
 </body>
 </html>
+
