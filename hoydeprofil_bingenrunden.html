@@ -1,90 +1,158 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Høydeprofil for Bingenrunden</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            overflow-x: hidden;
+        }
+        .stats {
+            font-size: 15px;
+            color: #422426;
+            margin-top: 10px;
+            padding-left: 40px; /* Flyttet innover */
+        }
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #422426;
+            color: #EEE9E0;
+            border-radius: 3px;
+            text-align: center;
+            line-height: 20px;
+            margin-right: 6px;
+        }
+        .triangle {
+            font-size: 18px; 
+            color: #422426;
+        }
+        canvas {
+            max-height: 400px;
+            height: 400px !important;
+            width: 100% !important;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="elevationChart"></canvas>
+
+<div class="stats">
+    <p><span class="icon">↔</span> Total lengde: <strong id="totalDistance"></strong> km</p>
+    <p><span class="icon">↗</span> Stigning: <strong id="totalAscent"></strong> m</p>
+    <p><span class="icon">↘</span> Fall: <strong id="totalDescent"></strong> m</p>
+    <p><span class="triangle">▲</span> Høyeste punkt: <strong id="highestPoint"></strong> moh</p>
+    <p><span class="triangle">▼</span> Laveste punkt: <strong id="lowestPoint"></strong> moh</p>
+</div>
+
 <script>
 async function loadElevationData() {
     const response = await fetch("https://raw.githubusercontent.com/sihoe/gyger/main/elevation_data.json");
-    const rawData = await response.json();
+    const elevationData = await response.json();
 
-    // Sorterer data etter avstand
-    rawData.sort((a, b) => a.distance - b.distance);
+    const distances = elevationData.map(d => parseFloat(d.distance));
+    const elevations = elevationData.map(d => parseFloat(d.elevation));
 
-    // Fjern punkter uten høyde (POI-er) fra datasettet
-    const elevationData = rawData.filter(d => d.elevation !== null);
-
-    // Klargjør data
-    const distances = elevationData.map(d => d.distance);
-    const elevations = elevationData.map(d => d.elevation);
-
-    // Nøkkeltallberegninger
-    const totalDistance = distances[distances.length - 1];
     const highestPoint = Math.max(...elevations);
     const lowestPoint = Math.min(...elevations);
-    let totalAscent = 0, totalDescent = 0;
+    const totalDistance = distances[distances.length - 1];
+
+    let totalAscent = 0, totalDescent = 0, slopes = [0], bgColors = [];
 
     for (let i = 1; i < elevations.length; i++) {
-        const diff = elevations[i] - elevations[i - 1];
-        if (diff > 0) totalAscent += diff;
-        else totalDescent += Math.abs(diff);
+        const deltaElev = elevations[i] - elevations[i - 1];
+        const deltaDist = distances[i] - distances[i - 1];
+        const slope = (deltaElev / (deltaDist * 1000)) * 100;
+        slopes.push(slope);
+
+        if (deltaElev > 0) {
+            totalAscent += deltaElev;
+            bgColors.push(slope > 5 ? '#CA6B2A' : slope > 2.5 ? '#F1B961' : 'transparent');
+        } else {
+            totalDescent += Math.abs(deltaElev);
+            bgColors.push('transparent');
+        }
     }
 
-    // Oppdater nøkkeltall i HTML
-    document.getElementById('totalDistance').innerText = totalDistance.toFixed(1);
-    document.getElementById('totalAscent').innerText = totalAscent.toFixed(0);
-    document.getElementById('totalDescent').innerText = totalDescent.toFixed(0);
-    document.getElementById('highestPoint').innerText = highestPoint.toFixed(0);
-    document.getElementById('lowestPoint').innerText = lowestPoint.toFixed(0);
+    // Fyller ut hvite områder mellom stolper med farge
+    for(let i = 1; i < bgColors.length - 1; i++){
+        if(bgColors[i] === 'transparent' && bgColors[i - 1] !== 'transparent' && bgColors[i + 1] !== 'transparent'){
+            bgColors[i] = bgColors[i - 1];
+        }
+    }
 
-    // Kalkuler bakgrunnsfarger
-    let segmentColors = elevations.map((_, i) => {
-        if (i === 0) return 'rgba(0,0,0,0)';
-        const diffElev = elevations[i] - elevations[i-1];
-        const diffDist = (distances[i] - distances[i-1]) * 1000;
-        const slope = (diffElev / diffDist) * 100;
-        if (slope > 5) return '#e15241';
-        if (slope > 2.5) return '#f7be4f';
-        return '#dddfe4';
-    });
+    document.getElementById("highestPoint").textContent = highestPoint.toFixed(0);
+    document.getElementById("lowestPoint").textContent = lowestPoint.toFixed(0);
+    document.getElementById("totalAscent").textContent = totalAscent.toFixed(0);
+    document.getElementById("totalDescent").textContent = totalDescent.toFixed(0);
+    document.getElementById("totalDistance").textContent = totalDistance.toFixed(1);
 
-    // Chart.js - Viser grafen
-    const ctx = document.getElementById('elevationChart').getContext('2d');
+    const ctx = document.getElementById("elevationChart").getContext("2d");
     new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: distances,
-            datasets: [{
-                label: 'Høyde (moh)',
-                data: elevations,
-                borderColor: '#422426',
-                backgroundColor: '#dddfe4',
-                fill: {
-                    target: 'origin',
-                    above: context => segmentColors[context.p0DataIndex],
+            datasets: [
+                {
+                    data: elevations,
+                    backgroundColor: bgColors,
+                    barPercentage: 1.2,
+                    categoryPercentage: 1.0,
+                    order: 2
                 },
-                tension: 0.3,
-                pointRadius: 0
-            }]
+                {
+                    type: 'line',
+                    data: elevations,
+                    borderColor: "#37394E",
+                    borderWidth: 4,
+                    pointRadius: 0,
+                    tension: 0.4,
+                    fill: false,
+                    order: 1
+                }
+            ]
         },
         options: {
             responsive: true,
-            interaction: { intersect: false, mode: 'index' },
+            maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'nearest'
+            },
             plugins: {
                 legend: { display: false },
                 tooltip: {
+                    backgroundColor: '#37394E',
+                    displayColors: false,
                     callbacks: {
-                        label: context => {
-                            const i = context.dataIndex;
-                            const elev = elevations[i].toFixed(0);
-                            const km = distances[i].toFixed(1);
-                            const slope = i > 0 ? (((elevations[i] - elevations[i-1]) / ((distances[i] - distances[i-1])*1000))*100).toFixed(1) : '0';
-                            return `Høyde: ${elev} moh, Km: ${km}, Stigning: ${slope}%`;
-                        }
+                        title: ctx => `${parseFloat(ctx[0].label).toFixed(1)} km`,
+                        label: ctx => `${ctx.raw.toFixed(0)} moh / ${slopes[ctx.dataIndex].toFixed(1)}%`
                     }
                 }
             },
             scales: {
                 x: {
-                    title: { display: true, text: 'Km' },
-                    ticks: { callback: v => `${v} km`, stepSize: 2 }
+                    type: 'linear',
+                    title: { display: true, text: 'Distanse (km)', color:'#37394E', font:{weight:'bold'} },
+                    ticks: {
+                        color:'#37394E',
+                        stepSize: 2,
+                        callback: value => (value % 2 === 0) ? `${value.toFixed(0)} km` : ''
+                    },
+                    grid: { display: false },
+                    min: 0,
+                    max: Math.ceil(totalDistance)
                 },
-                y: { title: { display: true, text: 'Høyde (moh)' } }
+                y: {
+                    title: { display: true, text: 'Høyde (m)', color:'#37394E', font:{weight:'bold'} },
+                    ticks: { color:'#37394E' }
+                }
             }
         }
     });
@@ -92,3 +160,14 @@ async function loadElevationData() {
 
 loadElevationData();
 </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
