@@ -81,7 +81,7 @@ async function loadElevationData() {
     }
 
     for(let i = 1; i < bgColors.length - 1; i++){
-        if(bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)'){
+        if(bgColors[i] === 'rgba(255,255,255,0)' && bgColors[i - 1] !== 'rgba(255,255,255,0)' && bgColors[i + 1] !== 'rgba(255,255,255,0)'){
             bgColors[i] = bgColors[i - 1];
         }
     }
@@ -101,7 +101,7 @@ async function loadElevationData() {
                 {
                     data: elevations,
                     backgroundColor: bgColors,
-                    barPercentage: 1.0,
+                    barPercentage: 1.05,
                     categoryPercentage: 1.0,
                     order: 2
                 },
@@ -162,4 +162,3 @@ loadElevationData();
 
 </body>
 </html>
-
