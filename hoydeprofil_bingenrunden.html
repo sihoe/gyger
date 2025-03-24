@@ -82,23 +82,26 @@ async function loadElevationData() {
     document.getElementById("totalDistance").textContent = totalDistance.toFixed(1);
 
     const ctx = document.getElementById("elevationChart").getContext("2d");
-    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, '#CA6B2A');
-    gradient.addColorStop(0.5, '#F1B961');
-    gradient.addColorStop(1, '#dddfe4');
 
     new Chart(ctx, {
         type: 'line',
         data: {
             labels: distances,
             datasets: [{
+                label: 'Elevation',
                 data: elevations,
                 borderColor: "#37394E",
-                borderWidth: 4,
+                borderWidth: 3,
                 pointRadius: 0,
-                tension: 0.4,
+                tension: 0.3,
                 fill: true,
-                backgroundColor: gradient
+                backgroundColor: '#dddfe4'
+            }, {
+                type: 'bar',
+                data: elevations,
+                backgroundColor: slopes.map(s => s > 5 ? '#CA6B2A' : s > 2.5 ? '#F1B961' : 'rgba(0,0,0,0)'),
+                barPercentage: 1.1,
+                categoryPercentage: 1.0
             }]
         },
         options: {
@@ -139,5 +142,3 @@ loadElevationData();
 
 </body>
 </html>
-
-
