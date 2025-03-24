@@ -6,17 +6,17 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
   <style>
     html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
 
     .chart-wrapper {
       position: relative;
       width: 100%;
-      aspect-ratio: 3 / 1; /* Endre til 2.5 / 1 eller 4 / 1 hvis du ønsker flatere profil */
+      aspect-ratio: 3 / 1; /* Juster gjerne til 2.5 / 1 for flatere visning */
     }
 
     canvas {
@@ -50,6 +50,11 @@
     .triangle {
       font-size: 18px;
       color: #422426;
+    }
+
+    /* Fjerner vertikal scroll på mobil/Chrome */
+    body::-webkit-scrollbar {
+      display: none;
     }
   </style>
 </head>
@@ -196,5 +201,3 @@
   </script>
 </body>
 </html>
-
-
