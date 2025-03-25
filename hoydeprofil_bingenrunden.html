@@ -9,31 +9,30 @@
       height: 100%;
       margin: 0;
       padding: 0;
+      overflow: hidden;
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
     }
 
     .chart-wrapper {
-      flex: 1;
       position: relative;
       width: 100%;
+      aspect-ratio: 3 / 1; /* Juster gjerne til 2.5 / 1 for flatere visning */
     }
 
     canvas {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100% !important;
-      height: 100% !important;
+      width: 100%;
+      height: 100%;
     }
 
     .stats {
       font-size: 15px;
       color: #422426;
-      padding: 10px 20px;
+      margin: 10px auto;
       max-width: 800px;
-      margin: 0 auto;
+      padding: 0 20px;
     }
 
     .icon {
@@ -53,11 +52,9 @@
       color: #422426;
     }
 
-    @media (max-width: 768px) {
-      .stats {
-        font-size: 14px;
-        padding: 10px;
-      }
+    /* Fjerner vertikal scroll på mobil/Chrome */
+    body::-webkit-scrollbar {
+      display: none;
     }
   </style>
 </head>
@@ -152,7 +149,7 @@
         },
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           interaction: {
             intersect: false,
             mode: 'nearest'
@@ -187,13 +184,18 @@
               max: Math.ceil(totalDistance)
             },
             y: {
-              title: {
-                display: true,
-                text: 'Høyde (m)',
-                color: '#37394E',
-                font: { weight: 'bold' }
-              },
-              ticks: { color: '#37394E' }
+  		title: {
+    		display: true,
+    		text: 'Høyde (m)',
+    		color: '#37394E',
+    		font: { weight: 'bold' }
+  		},
+  		ticks: {
+    		color: '#37394E',
+    		stepSize: 25  // <- mindre avstand mellom linjene, du kan prøve 20, 25 eller 50
+  		},
+  		beginAtZero: true  // Starter fra 0 m
+		}
             }
           }
         }
