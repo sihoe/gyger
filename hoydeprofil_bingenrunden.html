@@ -183,19 +183,22 @@
               min: 0,
               max: Math.ceil(totalDistance)
             },
-            y: {
-  		title: {
-    		display: true,
-    		text: 'Høyde (m)',
-    		color: '#37394E',
-    		font: { weight: 'bold' }
-  		},
-  		ticks: {
-    		color: '#37394E',
-    		stepSize: 15  // <- mindre avstand mellom linjene, du kan prøve 20, 25 eller 50
-  		},
-  		beginAtZero: true  // Starter fra 0 m
-		}
+           y: {
+  beginAtZero: true,
+  min: 0,
+  max: 600, // Sett manuelt hvis høyeste punkt er rundt 550
+  ticks: {
+    stepSize: 25, // Tettere linjer
+    color: '#37394E'
+  },
+  title: {
+    display: true,
+    text: 'Høyde (m)',
+    color: '#37394E',
+    font: { weight: 'bold' }
+  }
+}
+
             }
           }
         }
